@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Generator and Management Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="path/to/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .dashboard-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .section-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <header class="bg-primary text-white text-center py-3">
+            <h1>
+                <i class="fas fa-graduation-cap"></i> 
+                Quiz Management Dashboard
+            </h1>
+        </header>
+
+        <!-- Main Content -->
+        <div class="row mt-4">
+            <!-- Quiz Generation Section -->
+            <div class="col-md-4">
+                <div class="card dashboard-card">
+                    <div class="card-header section-header">
+                        <i class="fas fa-file-excel"></i> Quiz Generation
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Upload Excel File</label>
+                            <input type="file" 
+                                   id="fileInput" 
+                                   class="form-control" 
+                                   accept=".xlsx, .xls">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Quiz Duration</label>
+                            <select id="timeDuration" class="form-select">
+                                <option value="10">10 Minutes</option>
+                                <option value="20">20 Minutes</option>
+                                <option value="30">30 Minutes</option>
+                                <option value="45">45 Minutes</option>
+                                <option value="60">60 Minutes</option>
+                                <option value="90">90 Minutes</option>
+                                <option value="120">120 Minutes</option>
+                                <option value="180">180 Minutes</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button id="submitBtn" class="btn btn-primary">
+                                <i class="fas fa-file-upload"></i> Generate Quiz
+                            </button>
+                            <a id="downloadLink" 
+                               class="btn btn-success d-none" 
+                               download="generated_quiz.html">
+                                <i class="fas fa-download"></i> Download Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="col-md-4">
+                <div class="card dashboard-card">
+                    <div class="card-header section-header">
+                        <i class="fas fa-cloud-upload-alt"></i> File Uploads
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Upload Image</label>
+                            <input type="file" 
+                                   id="imageInput" 
+                                   class="form-control" 
+                                   accept="image/*">
+                            <button id="uploadImageBtn" class="btn btn-primary mt-2">
+                                <i class="fas fa-upload"></i> Upload Image
+                            </button>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Upload HTML</label>
+                            <input type="file" 
+                                   id="htmlInput" 
+                                   class="form-control" 
+                                   accept=".html">
+                            <button id="uploadHtmlBtn" class="btn btn-primary mt-2">
+                                <i class="fas fa-upload"></i> Upload HTML
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Performance Section -->
+            <div class="col-md-4">
+                <div class="card dashboard-card">
+                    <div class="card-header section-header">
+                        <i class="fas fa-chart-bar"></i> Student Performance
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Score</th>
+                                        <th>Course</th>
+                                        <th>Correct</th>
+                                        <th>Incorrect</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentTableBody">
+                                    <!-- Dynamic data will populate here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <!-- XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bootstrap JS (Optional, but recommended) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script src="admin.js"></script>
+
+    <!-- Firebase Configuration Script -->
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyDzZG2MtJb244u0g4IX59tGWATK-KGht-w",
+        authDomain: "testotest-b77f3.firebaseapp.com",
+        projectId: "testotest-b77f3",
+        storageBucket: "testotest-b77f3.appspot.com",
+        messagingSenderId: "57536899329",
+        appId: "1:57536899329:web:d07442630c944086171300",
+        measurementId: "G-52156S4D02"
+    };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>

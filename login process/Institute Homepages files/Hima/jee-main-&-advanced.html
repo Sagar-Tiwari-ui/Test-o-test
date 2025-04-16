@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete JEE Guide - Mains & Advanced</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .exam-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .toggle-btn {
+            padding: 12px 25px;
+            background: white;
+            color: #1a237e;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-btn:hover, .toggle-btn.active {
+            background: #1a237e;
+            color: white;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background: white;
+            color: #0d47a1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-button:hover {
+            background: #0d47a1;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .subject-section, .strategy-section {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subject-title {
+            color: #1a237e;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a237e;
+        }
+
+        .topic-group {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #0d47a1;
+        }
+
+        .topic-title {
+            color: #0d47a1;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-position: inside;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .difficulty-indicator {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+        .easy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .medium {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .hard {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .tips-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .tips-box h3 {
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .strategy-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #0d47a1;
+            transition: transform 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateX(10px);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #e3f2fd;
+            color: #1a237e;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .important-note {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f57c00;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #666;
+            background: white;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .exam-toggle {
+                flex-direction: column;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .comparison-table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Complete JEE Guide</h1>
+            <p>Comprehensive Guide for JEE Mains & Advanced</p>
+        </header>
+
+        <div class="exam-toggle">
+            <button class="toggle-btn active">JEE Mains</button>
+            <button class="toggle-btn">JEE Advanced</button>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-button">Syllabus</button>
+            <button class="nav-button">Strategy</button>
+            <button class="nav-button">Important Topics</button>
+            <button class="nav-button">Resources</button>
+        </div>
+
+        <div class="comparison-table">
+            <h2 class="subject-title">JEE Mains vs Advanced - Quick Comparison</h2>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>JEE Mains</th>
+                    <th>JEE Advanced</th>
+                </tr>
+                <tr>
+                    <td>Difficulty Level</td>
+                    <td>Moderate to High</td>
+                    <td>Very High</td>
+                </tr>
+                <tr>
+                    <td>Question Pattern</td>
+                    <td>MCQs & Numerical Value</td>
+                    <td>MCQs, Multiple Answer, Matrix Match, Integer Type</td>
+                </tr>
+                <tr>
+                    <td>Attempts Allowed</td>
+                    <td>Two attempts per year</td>
+                    <td>One attempt per year</td>
+                </tr>
+                <tr>
+                    <td>Eligibility</td>
+                    <td>12th Pass/Appearing</td>
+                    <td>Top 2.5 lakh ranks in JEE Mains</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Physics Section -->
+        <div class="subject-section">
+            <h2 class="subject-title">Physics</h2>
+
+            <div class="topic-group">
+                <h3 class="topic-title">Mechanics</h3>
+                <ul>
+                    <li>Kinematics <span class="difficulty-indicator medium">Medium</span></li>
+                    <li>Laws of Motion <span class="difficulty-indicator easy">Easy</span></li>
+                    <li>Work, Energy, Power <span class="difficulty-indicator medium">Medium</span></li>
+                    <li>Rotational Motion <span class="difficulty-indicator hard">Hard</span></li>
+                    <li>Gravitation <span class="difficulty-indicator medium">Medium</span></li>
+                </ul>
+            </div>
+
+            <div class="topic-group">
+                <h3 class="topic-title">Electromagnetism</h3>
+                <ul>
+                    <li>Electric Fields & Potential <span class="difficulty-indicator hard">Hard</span></li>
+                    <li>Current Electricity <span class="difficulty-indicator medium">Medium</span></li>
+                    <li>Magnetic Effects <span class="difficulty-indicator hard">Hard</span></li>
+                    <li>Electromagnetic Induction <span class="difficulty-indicator hard">Hard</span></li>
+                </ul>
+            </div>
+
+            <div class="topic-group">
+                <h3 class="topic-title">Modern Physics</h3>
+                <ul>
+                    <li>Photoelectric Effect <span class="difficulty-indicator medium">Medium</span></li>
+                    <li>Nuclear Physics <span class="difficulty-indicator hard">Hard</span></li>
+                    <li>Semiconductor Devices <span class="difficulty-indicator easy">Easy</span></li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h3>Physics Preparation Tips</h3>
+                <ul>
+                    <li>Focus on understanding concepts rather than memorizing formulas</li>
+                    <li>Practice numerical problems daily</li>
+                    <li>Create formula sheets for quick revision</li>
+                    <li>Solve previous year questions</li>
+                    <li>Focus on graphical problems and derivations</li>
+                </ul>
+            </div>
+        </div>
+                <!-- Chemistry Section -->
+                <div class="subject-section">
+                    <h2 class="subject-title">Chemistry</h2>
+        
+                    <div class="topic-group">
+                        <h3 class="topic-title">Physical Chemistry</h3>
+                        <ul>
+                            <li>Chemical Kinetics <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Thermodynamics <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Electrochemistry <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Solutions <span class="difficulty-indicator easy">Easy</span></li>
+                            <li>Atomic Structure <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Chemical Equilibrium <span class="difficulty-indicator hard">Hard</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="topic-group">
+                        <h3 class="topic-title">Organic Chemistry</h3>
+                        <ul>
+                            <li>GOC & Isomerism <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Reaction Mechanisms <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Named Reactions <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Biomolecules <span class="difficulty-indicator easy">Easy</span></li>
+                            <li>Polymers <span class="difficulty-indicator easy">Easy</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="topic-group">
+                        <h3 class="topic-title">Inorganic Chemistry</h3>
+                        <ul>
+                            <li>Chemical Bonding <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>p-Block Elements <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>d & f Block Elements <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Coordination Compounds <span class="difficulty-indicator hard">Hard</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="tips-box">
+                        <h3>Chemistry Preparation Tips</h3>
+                        <ul>
+                            <li>Focus on NCERT for Inorganic Chemistry</li>
+                            <li>Practice numerical problems in Physical Chemistry</li>
+                            <li>Make mind maps for Organic Chemistry reactions</li>
+                            <li>Regular revision of important reactions and mechanisms</li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Mathematics Section -->
+                <div class="subject-section">
+                    <h2 class="subject-title">Mathematics</h2>
+        
+                    <div class="topic-group">
+                        <h3 class="topic-title">Calculus</h3>
+                        <ul>
+                            <li>Functions <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Limits & Continuity <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Differentiation <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Integration <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Differential Equations <span class="difficulty-indicator hard">Hard</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="topic-group">
+                        <h3 class="topic-title">Algebra</h3>
+                        <ul>
+                            <li>Complex Numbers <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Matrices & Determinants <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Probability <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>Sequences & Series <span class="difficulty-indicator medium">Medium</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="topic-group">
+                        <h3 class="topic-title">Coordinate Geometry</h3>
+                        <ul>
+                            <li>Straight Lines <span class="difficulty-indicator easy">Easy</span></li>
+                            <li>Circles <span class="difficulty-indicator medium">Medium</span></li>
+                            <li>Conics <span class="difficulty-indicator hard">Hard</span></li>
+                            <li>3D Geometry <span class="difficulty-indicator hard">Hard</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="tips-box">
+                        <h3>Mathematics Preparation Tips</h3>
+                        <ul>
+                            <li>Practice variety of problems daily</li>
+                            <li>Focus on concept application rather than memorization</li>
+                            <li>Time management during problem-solving</li>
+                            <li>Create short notes for formulas and concepts</li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Strategy Section -->
+                <div class="strategy-section">
+                    <h2 class="subject-title">Preparation Strategy</h2>
+        
+                    <div class="strategy-card">
+                        <h3>Time Management</h3>
+                        <ul>
+                            <li>Dedicate 8-10 hours daily for studies</li>
+                            <li>Follow 50/10 rule: 50 minutes study, 10 minutes break</li>
+                            <li>Allocate time based on your strengths and weaknesses</li>
+                            <li>Keep 2 hours daily for revision</li>
+                            <li>Solve at least one mock test every week</li>
+                        </ul>
+                    </div>
+        
+                    <div class="strategy-card">
+                        <h3>Study Plan for JEE Mains</h3>
+                        <ul>
+                            <li>Complete NCERT thoroughly</li>
+                            <li>Focus on MCQ practice</li>
+                            <li>Regular mock tests</li>
+                            <li>Chapter-wise problem solving</li>
+                            <li>Quick revision techniques</li>
+                        </ul>
+                    </div>
+        
+                    <div class="strategy-card">
+                        <h3>Additional Preparation for Advanced</h3>
+                        <ul>
+                            <li>Focus on multi-concept problems</li>
+                            <li>Practice previous year papers</li>
+                            <li>Emphasis on theoretical understanding</li>
+                            <li>Advanced level problem solving</li>
+                            <li>Time management strategies</li>
+                        </ul>
+                    </div>
+        
+                    <div class="important-note">
+                        <h3>Important Resources</h3>
+                        <ul>
+                            <li>Standard textbooks for each subject</li>
+                            <li>Previous year question papers</li>
+                            <li>Online video lectures</li>
+                            <li>Mock test series</li>
+                            <li>Question banks</li>
+                        </ul>
+                    </div>
+        
+                    <div class="tips-box">
+                        <h3>Preparation Timeline</h3>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Time Period</th>
+                                <th>Focus Areas</th>
+                            </tr>
+                            <tr>
+                                <td>12-8 months before</td>
+                                <td>Basic concepts and NCERT</td>
+                            </tr>
+                            <tr>
+                                <td>8-6 months before</td>
+                                <td>Advanced concepts and problem solving</td>
+                            </tr>
+                            <tr>
+                                <td>6-3 months before</td>
+                                <td>Mock tests and weak topic improvement</td>
+                            </tr>
+                            <tr>
+                                <td>Last 3 months</td>
+                                <td>Revision and test series</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        
+                <div class="important-note">
+                    <h3>Common Mistakes to Avoid</h3>
+                    <ul>
+                        <li>Neglecting NCERT concepts</li>
+                        <li>Not practicing enough numerical problems</li>
+                        <li>Irregular study schedule</li>
+                        <li>Skipping mock tests</li>
+                        <li>Not analyzing mistakes in tests</li>
+                        <li>Last-minute preparation</li>
+                    </ul>
+                </div>
+        
+                <div class="tips-box">
+                    <h3>Mental Health and Wellness Tips</h3>
+                    <ul>
+                        <li>Maintain a healthy sleep schedule (7-8 hours)</li>
+                        <li>Include physical activity in daily routine</li>
+                        <li>Practice meditation or relaxation techniques</li>
+                        <li>Take regular breaks during study</li>
+                        <li>Maintain a balanced diet</li>
+                        <li>Stay connected with family and friends</li>
+                    </ul>
+                </div>
+        
+                <footer>
+                    <p>© 2023 Complete JEE Guide | All Rights Reserved</p>
+                    <p>Best of luck for your JEE preparation! 🎯</p>
+                    <p><small>Note: This guide is based on the latest JEE pattern. Always refer to official notifications for updates.</small></p>
+                </footer>
+            </div>
+<!-- Add this after the footer but before </body> -->
+<script>
+    // Toggle between JEE Mains and Advanced content
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    const mainsSections = document.querySelectorAll('.mains-content');
+    const advancedSections = document.querySelectorAll('.advanced-content');
+
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            toggleButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            if (button.textContent === 'JEE Mains') {
+                mainsSections.forEach(section => section.style.display = 'block');
+                advancedSections.forEach(section => section.style.display = 'none');
+            } else {
+                mainsSections.forEach(section => section.style.display = 'none');
+                advancedSections.forEach(section => section.style.display = 'block');
+            }
+        });
+    });
+
+    // Navigation functionality
+    const navButtons = document.querySelectorAll('.nav-button');
+    const sections = {
+        'Syllabus': document.querySelectorAll('.subject-section'),
+        'Strategy': document.querySelectorAll('.strategy-section'),
+        'Important Topics': document.querySelectorAll('.topic-group'),
+        'Resources': document.querySelectorAll('.important-note')
+    };
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Hide all sections first
+            Object.values(sections).flat().forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            sections[button.textContent].forEach(section => {
+                section.style.display = 'block';
+            });
+        });
+    });
+
+    // Difficulty filter functionality
+    const difficultyFilters = document.createElement('div');
+    difficultyFilters.className = 'difficulty-filters';
+    difficultyFilters.innerHTML = `
+        <h3>Filter by Difficulty:</h3>
+        <button class="filter-btn active" data-difficulty="all">All</button>
+        <button class="filter-btn" data-difficulty="easy">Easy</button>
+        <button class="filter-btn" data-difficulty="medium">Medium</button>
+        <button class="filter-btn" data-difficulty="hard">Hard</button>
+    `;
+
+    document.querySelector('.nav-buttons').after(difficultyFilters);
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const topicItems = document.querySelectorAll('li');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            const difficulty = button.dataset.difficulty;
+            
+            topicItems.forEach(item => {
+                const difficultyIndicator = item.querySelector('.difficulty-indicator');
+                if (!difficultyIndicator) return;
+                
+                if (difficulty === 'all' || difficultyIndicator.classList.contains(difficulty)) {
+                    item.style.display = 'list-item';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Progress tracking
+    const topics = document.querySelectorAll('li');
+    topics.forEach(topic => {
+        topic.style.cursor = 'pointer';
+        topic.addEventListener('click', () => {
+            topic.classList.toggle('completed');
+            updateProgress();
+        });
+    });
+
+    function updateProgress() {
+        const total = topics.length;
+        const completed = document.querySelectorAll('.completed').length;
+        const progress = (completed / total) * 100;
+        
+        // Create or update progress bar
+        let progressBar = document.querySelector('.progress-bar');
+        if (!progressBar) {
+            progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            document.querySelector('header').appendChild(progressBar);
+        }
+        progressBar.style.width = `${progress}%`;
+        progressBar.textContent = `${Math.round(progress)}% Complete`;
+    }
+
+    // Search functionality
+    const searchBox = document.createElement('div');
+    searchBox.className = 'search-box';
+    searchBox.innerHTML = `
+        <input type="text" placeholder="Search topics..." id="searchInput">
+    `;
+    document.querySelector('.nav-buttons').before(searchBox);
+
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        topics.forEach(topic => {
+            const text = topic.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                topic.style.display = 'list-item';
+            } else {
+                topic.style.display = 'none';
+            }
+        });
+    });
+
+    // Add these styles to the existing <style> tag
+    document.querySelector('style').textContent += `
+        .difficulty-filters {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            background: #f0f2f5;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #1a237e;
+            color: white;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .progress-bar {
+            background: #4CAF50;
+            height: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .search-box {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .search-box input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 5px rgba(26,35,126,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .search-box input {
+                width: 100%;
+            }
+            
+            .difficulty-filters button {
+                margin: 5px;
+            }
+        }
+    `;
+</script>
+        </body>
+        </html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commerce Stream Board Exam Guide 2023-24</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .marking-scheme {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .marking-scheme table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .marking-scheme th, .marking-scheme td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .marking-scheme th {
+            background: #f8f9fa;
+            color: #2c3e50;
+        }
+
+        .project-section {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2c3e50;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subject-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            padding: 12px 25px;
+            background: white;
+            color: #2c3e50;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-btn:hover, .toggle-btn.active {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .chapter-card {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .case-study-section {
+            background: #fff3e0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #f57c00;
+        }
+
+        .practical-component {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .weightage-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .high-weightage {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .medium-weightage {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .low-weightage {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .search-box {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .search-box input {
+            padding: 12px 20px;
+            width: 300px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 5px rgba(44,62,80,0.3);
+        }
+
+        .topic-list li {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .topic-list li:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .topic-list li.completed {
+            background: #e8f5e9;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .special-features {
+            background: #f3e5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .progress-container {
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin: 15px 0;
+            padding: 2px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(to right, #2c3e50, #3498db);
+            height: 20px;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .subject-toggle {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Commerce Stream Board Exam Guide 2023-24</h1>
+            <p>Complete Theory, Practical, and Project Guide</p>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 0%">0% Complete</div>
+            </div>
+        </header>
+
+        <div class="marking-scheme">
+            <h2>Marking Scheme Overview</h2>
+            <table>
+                <tr>
+                    <th>Subject</th>
+                    <th>Theory Marks</th>
+                    <th>Practical/Project</th>
+                    <th>Total Marks</th>
+                </tr>
+                <tr>
+                    <td>Accountancy</td>
+                    <td>80</td>
+                    <td>20 (Project)</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>Business Studies</td>
+                    <td>80</td>
+                    <td>20 (Project)</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>Economics</td>
+                    <td>80</td>
+                    <td>20 (Project)</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>Mathematics</td>
+                    <td>80</td>
+                    <td>20 (Internal Assessment)</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search chapters, topics, or case studies...">
+        </div>
+
+        <div class="subject-toggle">
+            <button class="toggle-btn active">Accountancy</button>
+            <button class="toggle-btn">Business Studies</button>
+            <button class="toggle-btn">Economics</button>
+            <button class="toggle-btn">Mathematics</button>
+        </div>
+                <!-- Accountancy Section -->
+                <div class="subject-section" id="accountancy">
+                    <h2 class="subject-title">Accountancy</h2>
+                    
+                    <!-- Theory Section -->
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <h3>Unit 1: Partnership Firms</h3>
+                            <span class="weightage-badge high-weightage">25 Marks</span>
+                            <span class="bookmark-btn">★</span>
+                        </div>
+                        <ul class="topic-list">
+                            <li>Fundamentals of Partnership</li>
+                            <li>Change in Profit Sharing Ratio</li>
+                            <li>Admission of a Partner</li>
+                            <li>Retirement and Death of a Partner</li>
+                            <li>Dissolution of Partnership Firm</li>
+                        </ul>
+                        <div class="practical-component">
+                            <h4>Practical Focus:</h4>
+                            <ul>
+                                <li>Partnership Deed Preparation</li>
+                                <li>Profit & Loss Appropriation Account</li>
+                                <li>Capital Adjustment Calculations</li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <h3>Unit 2: Companies</h3>
+                            <span class="weightage-badge high-weightage">30 Marks</span>
+                            <span class="bookmark-btn">★</span>
+                        </div>
+                        <ul class="topic-list">
+                            <li>Issue of Shares</li>
+                            <li>Forfeiture of Shares</li>
+                            <li>Company Final Accounts</li>
+                            <li>Financial Statement Analysis</li>
+                        </ul>
+                    </div>
+        
+                    <!-- Project Work Guidelines -->
+                    <div class="project-section">
+                        <h3>Project Work (20 Marks)</h3>
+                        <div class="marking-scheme">
+                            <h4>Project Assessment Criteria:</h4>
+                            <ul>
+                                <li>Content Accuracy (8 Marks)</li>
+                                <li>Presentation (4 Marks)</li>
+                                <li>Viva Voce (8 Marks)</li>
+                            </ul>
+                        </div>
+                        <div class="special-features">
+                            <h4>Comprehensive Project Guide:</h4>
+                            <ul>
+                                <li>Analysis of Financial Statements</li>
+                                <li>Ratio Analysis</li>
+                                <li>Cash Flow Statement</li>
+                                <li>Common Size Statement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Business Studies Section -->
+                <div class="subject-section" id="business" style="display: none;">
+                    <h2 class="subject-title">Business Studies</h2>
+                    
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <h3>Unit 1: Nature and Significance of Management</h3>
+                            <span class="weightage-badge high-weightage">16 Marks</span>
+                            <span class="bookmark-btn">★</span>
+                        </div>
+                        <ul class="topic-list">
+                            <li>Management Concepts</li>
+                            <li>Principles of Management</li>
+                            <li>Business Environment</li>
+                        </ul>
+                        <div class="case-study-section">
+                            <h4>Case Study Approach:</h4>
+                            <ul>
+                                <li>Management Principles Application</li>
+                                <li>Business Environment Analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Project Guidelines -->
+                    <div class="project-section">
+                        <h3>Project Work (20 Marks)</h3>
+                        <div class="special-features">
+                            <h4>Project Categories:</h4>
+                            <ul>
+                                <li>Case Study Analysis</li>
+                                <li>Business Plan</li>
+                                <li>Marketing Strategy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Economics Section -->
+                <div class="subject-section" id="economics" style="display: none;">
+                    <h2 class="subject-title">Economics</h2>
+                    
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <h3>Unit 1: National Income and Related Aggregates</h3>
+                            <span class="weightage-badge high-weightage">15 Marks</span>
+                            <span class="bookmark-btn">★</span>
+                        </div>
+                        <ul class="topic-list">
+                            <li>Basic Concepts</li>
+                            <li>Measurement of National Income</li>
+                            <li>Aggregate Demand and Supply</li>
+                        </ul>
+                        <div class="practical-component">
+                            <h4>Numerical Applications:</h4>
+                            <ul>
+                                <li>National Income Calculations</li>
+                                <li>Price Index Numbers</li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Project Work -->
+                    <div class="project-section">
+                        <h3>Project Work (20 Marks)</h3>
+                        <div class="special-features">
+                            <h4>Research Areas:</h4>
+                            <ul>
+                                <li>Indian Economy Analysis</li>
+                                <li>Sectoral Studies</li>
+                                <li>Economic Policies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Mathematics Section -->
+                <div class="subject-section" id="mathematics" style="display: none;">
+                    <h2 class="subject-title">Mathematics</h2>
+                    
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <h3>Unit 1: Matrices and Determinants</h3>
+                            <span class="weightage-badge high-weightage">15 Marks</span>
+                            <span class="bookmark-btn">★</span>
+                        </div>
+                        <ul class="topic-list">
+                            <li>Matrix Operations</li>
+                            <li>Determinants</li>
+                            <li>Applications in Business</li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <script>
+                    // Subject Toggle Functionality
+                    const subjectButtons = document.querySelectorAll('.subject-toggle .toggle-btn');
+                    const subjectSections = document.querySelectorAll('.subject-section');
+        
+                    subjectButtons.forEach((button, index) => {
+                        button.addEventListener('click', () => {
+                            subjectButtons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+                            
+                            subjectSections.forEach(section => section.style.display = 'none');
+                            subjectSections[index].style.display = 'block';
+                        });
+                    });
+        
+                    // Search Functionality
+                    const searchInput = document.querySelector('.search-box input');
+                    const allTopics = document.querySelectorAll('.topic-list li');
+        
+                    searchInput.addEventListener('input', () => {
+                        const searchTerm = searchInput.value.toLowerCase();
+                        
+                        allTopics.forEach(topic => {
+                            const text = topic.textContent.toLowerCase();
+                            const topicCard = topic.closest('.chapter-card');
+                            if (text.includes(searchTerm)) {
+                                topicCard.style.display = 'block';
+                                topic.style.display = 'list-item';
+                            } else {
+                                topic.style.display = 'none';
+                                if (![...topicCard.querySelectorAll('.topic-list li')].some(li => 
+                                    li.textContent.toLowerCase().includes(searchTerm))) {
+                                    topicCard.style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+        
+                    // Progress Tracking
+                    const topics = document.querySelectorAll('.topic-list li');
+                    const progressBar = document.querySelector('.progress-bar');
+        
+                    topics.forEach(topic => {
+                        topic.addEventListener('click', () => {
+                            topic.classList.toggle('completed');
+                            updateProgress();
+                        });
+                    });
+        
+                    function updateProgress() {
+                        const totalTopics = topics.length;
+                        const completedTopics = document.querySelectorAll('.topic-list li.completed').length;
+                        const percentage = (completedTopics / totalTopics) * 100;
+                        
+                        progressBar.style.width = `${percentage}%`;
+                        progressBar.textContent = `${Math.round(percentage)}% Complete`;
+        
+                        // Save progress to localStorage
+                        localStorage.setItem('commerceProgress', percentage);
+                    }
+        
+                    // Bookmark Functionality
+                    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            btn.classList.toggle('active');
+                            
+                            // Save bookmarks to localStorage
+                            const chapter = btn.closest('.chapter-card').querySelector('h3').textContent;
+                            const bookmarks = JSON.parse(localStorage.getItem('commerceBookmarks') || '[]');
+                            
+                            if (btn.classList.contains('active')) {
+                                if (!bookmarks.includes(chapter)) bookmarks.push(chapter);
+                            } else {
+                                const index = bookmarks.indexOf(chapter);
+                                if (index > -1) bookmarks.splice(index, 1);
+                            }
+                            
+                            localStorage.setItem('commerceBookmarks', JSON.stringify(bookmarks));
+                        });
+                    });
+        
+                    // Load saved progress and bookmarks
+                    window.addEventListener('load', () => {
+                        const savedProgress = localStorage.getItem('commerceProgress');
+                        if (savedProgress) {
+                            progressBar.style.width = `${savedProgress}%`;
+                            progressBar.textContent = `${Math.round(savedProgress)}% Complete`;
+                        }
+        
+                        const savedBookmarks = JSON.parse(localStorage.getItem('commerceBookmarks') || '[]');
+                        document.querySelectorAll('.chapter-card').forEach(card => {
+                            const chapter = card.querySelector('h3').textContent;
+                            if (savedBookmarks.includes(chapter)) {
+                                card.querySelector('.bookmark-btn').classList.add('active');
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </body>
+        </html>

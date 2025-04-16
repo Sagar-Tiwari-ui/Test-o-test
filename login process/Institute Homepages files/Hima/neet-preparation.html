@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete NEET Guide - Comprehensive Preparation Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #006064 0%, #00897b 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .phase-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .toggle-btn {
+            padding: 12px 25px;
+            margin: 0 5px;
+            background: white;
+            color: #006064;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-btn:hover, .toggle-btn.active {
+            background: #006064;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background: white;
+            color: #00897b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-button:hover {
+            background: #00897b;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .subject-section {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subject-title {
+            color: #006064;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #006064;
+        }
+
+        .chapter-group {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #00897b;
+        }
+
+        .chapter-title {
+            color: #00897b;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .topic-list li {
+            margin: 8px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-list li:hover {
+            transform: translateX(10px);
+            background: #e0f2f1;
+        }
+
+        .importance-indicator {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+        .high {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .medium {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .low {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tips-box {
+            background: #e0f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .tips-box h3 {
+            color: #006064;
+            margin-bottom: 10px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .progress-container {
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin: 15px 0;
+            padding: 2px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(to right, #00897b, #006064);
+            height: 20px;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            font-size: 0.9em;
+        }
+
+        .search-box {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .search-box input {
+            padding: 12px 20px;
+            width: 300px;
+            border: 2px solid #e0f7fa;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #006064;
+            box-shadow: 0 0 5px rgba(0,96,100,0.3);
+        }
+
+        .filter-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            background: #e0f7fa;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #006064;
+            color: white;
+        }
+
+        .quick-links {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .quick-links a {
+            display: block;
+            padding: 5px 10px;
+            color: #006064;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .quick-links a:hover {
+            background: #e0f7fa;
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .phase-toggle {
+                flex-direction: column;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .quick-links {
+                display: none;
+            }
+        }
+
+        .completed {
+            background: #e0f7fa !important;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .bookmark {
+            color: gold;
+            cursor: pointer;
+            float: right;
+        }
+
+        .notes-section {
+            display: none;
+            background: white;
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .notes-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Complete NEET Guide</h1>
+            <p>Your Comprehensive Preparation Portal</p>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 0%">0% Complete</div>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search topics, chapters, or concepts...">
+        </div>
+
+        <div class="phase-toggle">
+            <button class="toggle-btn active">Phase 1 (Class 11)</button>
+            <button class="toggle-btn">Phase 2 (Class 12)</button>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-button active">Syllabus</button>
+            <button class="nav-button">Study Plan</button>
+            <button class="nav-button">Important Topics</button>
+            <button class="nav-button">Resources</button>
+            <button class="nav-button">Test Series</button>
+        </div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-importance="all">All Topics</button>
+            <button class="filter-btn" data-importance="high">High Priority</button>
+            <button class="filter-btn" data-importance="medium">Medium Priority</button>
+            <button class="filter-btn" data-importance="low">Low Priority</button>
+        </div>
+                <!-- Biology Section -->
+                <div class="subject-section" id="biology">
+                    <h2 class="subject-title">Biology</h2>
+                    
+                    <div class="chapter-group phase1">
+                        <h3 class="chapter-title">Diversity in Living World</h3>
+                        <ul class="topic-list">
+                            <li>Living World <span class="importance-indicator high">High Priority</span>
+                                <span class="bookmark">★</span>
+                                <div class="notes-section">
+                                    <textarea class="notes-input" placeholder="Add your notes here..."></textarea>
+                                </div>
+                            </li>
+                            <li>Biological Classification <span class="importance-indicator high">High Priority</span></li>
+                            <li>Plant Kingdom <span class="importance-indicator medium">Medium Priority</span></li>
+                            <li>Animal Kingdom <span class="importance-indicator high">High Priority</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="chapter-group phase1">
+                        <h3 class="chapter-title">Structural Organization</h3>
+                        <ul class="topic-list">
+                            <li>Morphology of Plants <span class="importance-indicator medium">Medium Priority</span></li>
+                            <li>Anatomy of Plants <span class="importance-indicator high">High Priority</span></li>
+                            <li>Structural Organization in Animals <span class="importance-indicator high">High Priority</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="chapter-group phase2">
+                        <h3 class="chapter-title">Human Physiology</h3>
+                        <ul class="topic-list">
+                            <li>Digestion and Absorption <span class="importance-indicator high">High Priority</span></li>
+                            <li>Breathing and Exchange of Gases <span class="importance-indicator high">High Priority</span></li>
+                            <li>Body Fluids and Circulation <span class="importance-indicator high">High Priority</span></li>
+                            <li>Excretory Products <span class="importance-indicator medium">Medium Priority</span></li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Chemistry Section -->
+                <div class="subject-section" id="chemistry">
+                    <h2 class="subject-title">Chemistry</h2>
+                    
+                    <div class="chapter-group phase1">
+                        <h3 class="chapter-title">Physical Chemistry</h3>
+                        <ul class="topic-list">
+                            <li>States of Matter <span class="importance-indicator high">High Priority</span></li>
+                            <li>Atomic Structure <span class="importance-indicator high">High Priority</span></li>
+                            <li>Chemical Bonding <span class="importance-indicator high">High Priority</span></li>
+                            <li>Chemical Equilibrium <span class="importance-indicator medium">Medium Priority</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="chapter-group phase2">
+                        <h3 class="chapter-title">Organic Chemistry</h3>
+                        <ul class="topic-list">
+                            <li>Basic Organic Chemistry <span class="importance-indicator high">High Priority</span></li>
+                            <li>Hydrocarbons <span class="importance-indicator medium">Medium Priority</span></li>
+                            <li>Biomolecules <span class="importance-indicator high">High Priority</span></li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Physics Section -->
+                <div class="subject-section" id="physics">
+                    <h2 class="subject-title">Physics</h2>
+                    
+                    <div class="chapter-group phase1">
+                        <h3 class="chapter-title">Mechanics</h3>
+                        <ul class="topic-list">
+                            <li>Units and Measurements <span class="importance-indicator medium">Medium Priority</span></li>
+                            <li>Motion in One Dimension <span class="importance-indicator high">High Priority</span></li>
+                            <li>Laws of Motion <span class="importance-indicator high">High Priority</span></li>
+                            <li>Work, Energy and Power <span class="importance-indicator high">High Priority</span></li>
+                        </ul>
+                    </div>
+        
+                    <div class="chapter-group phase2">
+                        <h3 class="chapter-title">Modern Physics</h3>
+                        <ul class="topic-list">
+                            <li>Dual Nature of Matter <span class="importance-indicator medium">Medium Priority</span></li>
+                            <li>Atoms and Nuclei <span class="importance-indicator high">High Priority</span></li>
+                            <li>Electronic Devices <span class="importance-indicator low">Low Priority</span></li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Quick Links Panel -->
+                <div class="quick-links">
+                    <a href="#biology">Biology</a>
+                    <a href="#chemistry">Chemistry</a>
+                    <a href="#physics">Physics</a>
+                    <a href="#resources">Resources</a>
+                </div>
+        
+                <script>
+                    // Topic Completion Tracking
+                    const topics = document.querySelectorAll('.topic-list li');
+                    let completedCount = 0;
+        
+                    topics.forEach(topic => {
+                        topic.addEventListener('click', function(e) {
+                            if (e.target.classList.contains('bookmark')) return;
+                            
+                            this.classList.toggle('completed');
+                            updateProgress();
+                        });
+                    });
+        
+                    function updateProgress() {
+                        completedCount = document.querySelectorAll('.completed').length;
+                        const totalTopics = topics.length;
+                        const progressPercentage = (completedCount / totalTopics) * 100;
+                        
+                        const progressBar = document.querySelector('.progress-bar');
+                        progressBar.style.width = `${progressPercentage}%`;
+                        progressBar.textContent = `${Math.round(progressPercentage)}% Complete`;
+                    }
+        
+                    // Search Functionality
+                    const searchInput = document.querySelector('.search-box input');
+                    searchInput.addEventListener('input', function() {
+                        const searchTerm = this.value.toLowerCase();
+                        
+                        topics.forEach(topic => {
+                            const text = topic.textContent.toLowerCase();
+                            const shouldShow = text.includes(searchTerm);
+                            topic.style.display = shouldShow ? '' : 'none';
+                        });
+                    });
+        
+                    // Phase Toggle
+                    const phaseButtons = document.querySelectorAll('.phase-toggle .toggle-btn');
+                    const phase1Content = document.querySelectorAll('.phase1');
+                    const phase2Content = document.querySelectorAll('.phase2');
+        
+                    phaseButtons.forEach((button, index) => {
+                        button.addEventListener('click', () => {
+                            phaseButtons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+        
+                            if (index === 0) {
+                                phase1Content.forEach(content => content.style.display = '');
+                                phase2Content.forEach(content => content.style.display = 'none');
+                            } else {
+                                phase1Content.forEach(content => content.style.display = 'none');
+                                phase2Content.forEach(content => content.style.display = '');
+                            }
+                        });
+                    });
+        
+                    // Importance Filter
+                    const filterButtons = document.querySelectorAll('.filter-btn');
+                    filterButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            filterButtons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+        
+                            const importance = button.dataset.importance;
+                            topics.forEach(topic => {
+                                const indicator = topic.querySelector('.importance-indicator');
+                                if (importance === 'all') {
+                                    topic.style.display = '';
+                                } else {
+                                    topic.style.display = indicator.classList.contains(importance) ? '' : 'none';
+                                }
+                            });
+                        });
+                    });
+        
+                    // Bookmarking System
+                    const bookmarks = document.querySelectorAll('.bookmark');
+                    bookmarks.forEach(bookmark => {
+                        bookmark.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            this.style.color = this.style.color === 'gold' ? 'gray' : 'gold';
+                        });
+                    });
+        
+                    // Notes System
+                    topics.forEach(topic => {
+                        topic.addEventListener('dblclick', function() {
+                            const notesSection = this.querySelector('.notes-section');
+                            if (notesSection) {
+                                notesSection.style.display = 
+                                    notesSection.style.display === 'none' ? 'block' : 'none';
+                            }
+                        });
+                    });
+        
+                    // Save notes to localStorage
+                    document.querySelectorAll('.notes-input').forEach(input => {
+                        input.addEventListener('change', function() {
+                            const topicId = this.closest('li').textContent.trim();
+                            localStorage.setItem(`note_${topicId}`, this.value);
+                        });
+        
+                        // Load saved notes
+                        const topicId = input.closest('li').textContent.trim();
+                        const savedNote = localStorage.getItem(`note_${topicId}`);
+                        if (savedNote) input.value = savedNote;
+                    });
+        
+                    // Navigation Buttons
+                    const navButtons = document.querySelectorAll('.nav-button');
+                    navButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            navButtons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+                        });
+                    });
+                </script>
+            </div>
+        </body>
+        </html>
