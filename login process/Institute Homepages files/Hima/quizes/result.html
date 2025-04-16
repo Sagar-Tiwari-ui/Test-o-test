@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Add jsPDF library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Add html2canvas for better PDF rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Add Firebase libraries -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="result-container">
+        <div class="result-header">
+            <h1>Quiz Results</h1>
+            <p>Your performance breakdown</p>
+        </div>
+
+        <div class="score-display">
+            <div class="score-circle" id="scoreDisplay">0</div>
+            <h2>Total Score</h2>
+        </div>
+
+        <div class="statistics-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="accuracyDisplay">0%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="timeDisplay">0:00</div>
+                <div class="stat-label">Time Taken</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="attemptedDisplay">0/0</div>
+                <div class="stat-label">Questions Attempted</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="correctDisplay">0</div>
+                <div class="stat-label">Correct Answers</div>
+            </div>
+        </div>
+
+
+        <div class="action-buttons">
+            <button class="home-button" onclick="goHome()">Go to Home</button>
+            <button class="download-button" onclick="downloadResults()">Download Results</button>
+        </div>
+        
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+    
+    <!-- PDF preview container -->
+    <div id="pdfPreview" class="pdf-preview">
+        <span class="close-preview" onclick="closePdfPreview()">&times;</span>
+        <div id="pdfContent" class="pdf-content">
+            <!-- PDF content will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzZG2MtJb244u0g4IX59tGWATK-KGht-w",
+            authDomain: "testotest-b77f3.firebaseapp.com",
+            projectId: "testotest-b77f3",
+            storageBucket: "testotest-b77f3.appspot.com",
+            messagingSenderId: "57536899329",
+            appId: "1:57536899329:web:d07442630c944086171300",
+            measurementId: "G-52156S4D02"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayResults();
+        });
+
+        function displayResults() {
+            // Get results from sessionStorage
+            const score = localStorage.getItem('quizScore') || 0;
+            const correctAnswers = sessionStorage.getItem('correctAnswers') || 0;
+            const wrongAnswers = sessionStorage.getItem('wrongAnswers') || 0;
+            const timeTaken = sessionStorage.getItem('timeTaken') || 0;
+            const totalQuestions = sessionStorage.getItem('totalQuestions') || 0;
+            const attempted = sessionStorage.getItem('attempted') || 0;
+
+            // Calculate accuracy
+            const accuracy = totalQuestions > 0 
+                ? Math.round((correctAnswers / totalQuestions) * 100) 
+                : 0;
+
+            // Format time
+            const minutes = Math.floor(timeTaken / 60);
+            const seconds = timeTaken % 60;
+            const timeFormatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Update display
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('accuracyDisplay').textContent = `${accuracy}%`;
+            document.getElementById('timeDisplay').textContent = timeFormatted;
+            document.getElementById('attemptedDisplay').textContent = `${attempted}/${totalQuestions}`;
+            document.getElementById('correctDisplay').textContent = correctAnswers;
+
+            // Load subject-wise breakdown
+            loadSubjectBreakdown();
+        }
+
+        async function loadSubjectBreakdown() {
+            try {
+                const studentAnswers = JSON.parse(sessionStorage.getItem('studentAnswers') || '{}');
+                const subjects = ['physics', 'chemistry', 'biology'];
+
+                subjects.forEach(subject => {
+                    // Calculate subject-wise statistics
+                    const subjectStats = calculateSubjectStats(subject, studentAnswers);
+                    
+                    // Update display
+                    document.getElementById(`${subject}Score`).textContent = subjectStats.score;
+                    document.getElementById(`${subject}Correct`).textContent = subjectStats.correct;
+                });
+            } catch (error) {
+                console.error('Error loading subject breakdown:', error);
+            }
+        }
+
+        function calculateSubjectStats(subject, answers) {
+            // Implementation depends on how you store subject-wise answers
+            // This is a placeholder implementation
+            return {
+                score: 0,
+                correct: 0
+            };
+        }
+
+        function goHome() {
+            window.location.href = 'Homepage.html';
+        }
+
+        async function downloadResults() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Get the content to be converted to PDF
+                const content = document.querySelector('.result-container');
+                
+                // Convert the content to canvas
+                const canvas = await html2canvas(content);
+                
+                // Add the canvas to PDF
+                const imgData = canvas.toDataURL('image/png');
+                doc.addImage(imgData, 'PNG', 10, 10, 190, 280);
+
+                // Save the PDF
+                doc.save('quiz-results.pdf');
+
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+            }
+        }
+
+        function reviewAnswers() {
+            // Implement answer review functionality
+            // This could redirect to a new page showing questions and correct answers
+            window.location.href = 'review.html';
+        }
+
+        function closePdfPreview() {
+            document.getElementById('pdfPreview').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
