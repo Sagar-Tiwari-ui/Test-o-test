@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="wave-container">
+        <img src="assets/images/wave.svg" class="wave" alt="">
+    </div>
+
+    <div class="main-container">
+        <!-- Login Form -->
+        <div class="form-container" id="loginForm">
+            <div class="logo">
+                <img src="assets/images/Logo.jpg" alt="Logo">
+            </div>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Login to access your quiz</p>
+
+            <form id="loginFormElement">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" required>
+                    <label>Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" required>
+                    <label>Password</label>
+                </div>
+
+                <div id="loginError" class="error-message"></div>
+                <button type="submit" class="submit-btn">Login</button>
+
+                <div class="switch-form">
+                    <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container" id="registerForm" style="display: none;">
+            <div class="logo">
+                <img src="assets/images/Logo.jpg" alt="Logo">
+            </div>
+            <h2>Create Account</h2>
+            <p class="subtitle">Registration fee: ₹1</p>
+
+            <form id="registerFormElement">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="firstName" required>
+                    <label>First Name</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="lastName" required>
+                    <label>Last Name</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="registerEmail" required>
+                    <label>Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" id="phone" required>
+                    <label>Mobile Number</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="registerPassword" required>
+                    <label>Password</label>
+                </div>
+
+                <div id="registerError" class="error-message"></div>
+                <button type="submit" class="submit-btn">Proceed to Payment</button>
+
+                <div class="switch-form">
+                    <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Replace the payment modal content with this -->
+<div class="modal" id="paymentModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Complete Payment</h2>
+        
+        <div class="payment-amount">
+            <span class="amount-label">Registration Fee</span>
+            <span class="amount">₹1</span>
+        </div>
+
+        <button id="rzp-button" class="payment-button">
+            <i class="fas fa-lock"></i>
+            Proceed to Payment
+        </button>
+    </div>
+</div>
+
+<!-- Add Razorpay SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="js/config.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>
