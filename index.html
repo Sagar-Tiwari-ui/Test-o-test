@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test-O-Test - Your Ultimate Quiz Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index-style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="./assets/images/Logo.jpg" alt="Test-O-Test" id="site-logo">
+                <h1>Test-O-Test</h1>
+            </div>
+            <nav>
+                <div class="hamburger" id="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-buttons" id="nav-menu">
+                    <button data-href="./institute-login.html" class="nav-btn">
+                        <i class="fas fa-building"></i> For Institutes
+                    </button>
+                    <button data-href="./free-student-login.html" class="nav-btn">
+                        <i class="fas fa-user-graduate"></i> For Students
+                    </button>
+                    <button data-href="./contact-us.html" class="nav-btn">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </button>
+                    <button data-href="./about-us.html" class="nav-btn">
+                        <i class="fas fa-info-circle"></i> About Us
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Master Your Knowledge with Interactive Quizzes</h1>
+            <p>Join thousands of students preparing for success through our comprehensive test platform</p>
+            <div class="hero-buttons">
+                <button data-href="./free-student-login.html" class="hero-btn">
+                    <i class="fas fa-book-open"></i> Free Practice Tests
+                </button>
+                <button data-href="./paid-student-login.html" class="hero-btn">
+                    <i class="fas fa-pencil-alt"></i> Take Our Mock Exam
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <div class="quote-container">
+            <i class="fas fa-quote-left"></i>
+            <p class="quote" id="quote-text"></p>
+            <p class="author" id="quote-author"></p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Why Choose Test-O-Test?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>Real-Time Testing</h3>
+                <p>Experience exam-like environment with timed tests and instant results</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Detailed Analytics</h3>
+                <p>Get comprehensive performance reports and improvement suggestions</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-database"></i>
+                <h3>Vast Question Bank</h3>
+                <p>Access thousands of quality questions across multiple subjects</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Friendly</h3>
+                <p>Practice anywhere, anytime on any device</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>100K+</h3>
+                <p>Active Students</p>
+            </div>
+            <div class="stat-item">
+                <h3>50K+</h3>
+                <p>Questions</p>
+            </div>
+            <div class="stat-item">
+                <h3>1000+</h3>
+                <p>Mock Tests</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="subjects">
+        <h2>Popular Test Categories</h2>
+        <div class="subject-grid">
+            <div class="subject-card">
+                <i class="fas fa-calculator"></i>
+                <h3>Mathematics</h3>
+            </div>
+            <div class="subject-card">
+                <i class="fas fa-atom"></i>
+                <h3>Science</h3>
+            </div>
+            <div class="subject-card">
+                <i class="fas fa-language"></i>
+                <h3>English</h3>
+            </div>
+            <div class="subject-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Coding</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> test.o.test.career@.com</p>
+                <p><i class="fas fa-phone"></i> +91 783 803 7055</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="./free-student-login.html">Practice Tests</a></li>
+                    <li><a href="./paid-student-login.html">Mock Exams</a></li>
+                    <li><a href="./study-materials.html">Study Materials</a></li>
+                    <li><a href="./faqs.html">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Test-O-Test. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./index-script.js"></script>
+</body>
+</html>
