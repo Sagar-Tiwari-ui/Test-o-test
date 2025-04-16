@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Institute Login Portal for Educational Management">
+    <meta name="keywords" content="institute login, education portal, coaching management">
+    <title>Institute Login</title>
+
+    <!-- External CSS Links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="login-style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/Logo.jpg">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+</head>
+<body>
+    <!-- Logo Container -->
+    <div class="logo-container" style="text-align: center; margin-bottom: 20px;">
+        <img src="assets/images/Logo.jpg" alt="Institute Logo" style="width: 150px; height: auto;">
+    </div>
+
+    <!-- Sign Up Form Container -->
+    <div class="container" id="signup" style="display:none;">
+        <h1 class="form-title">Institute Registration</h1>
+        <form method="post" action="" id="signupForm">
+            <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
+            
+            <!-- First Name Input -->
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="fName" name="firstName" placeholder="First Name" required>
+                <label for="fName"></label>
+            </div>
+
+            <!-- Last Name Input -->
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="lName" name="lastName" placeholder="Last Name" required>
+                <label for="lName"></label>
+            </div>
+
+            <!-- Email Input -->
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="rEmail" name="email" placeholder="Email" required>
+                <label for="rEmail"></label>
+            </div>
+
+            <!-- Coaching Sector Input -->
+            <div class="input-group">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <input type="text" id="Csector" name="coachingSector" placeholder="Coaching Sector" required>
+                <label for="Csector"></label>
+            </div>
+
+            <!-- Mobile Number Input -->
+            <div class="input-group">
+                <i class="fas fa-mobile"></i>
+                <input type="tel" id="MNumber" name="mobileNumber" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+                <label for="MNumber"></label>
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="rPassword" name="password" placeholder="Password" 
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                <label for="rPassword"></label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn" id="submitSignUp">Register Institute</button>
+        </form>
+
+        <p class="or">----------or--------</p>
+
+        <div class="links">
+            <p>Already Have an Institute Account?</p>
+            <button type="button" id="signInButton" class="switch-btn">Sign In</button>
+        </div>
+    </div>
+
+    <!-- Sign In Form Container -->
+    <div class="container" id="signIn">
+        <h1 class="form-title">Institute Login</h1>
+        <form method="post" action="" id="signinForm">
+            <div id="signInMessage" class="messageDiv" style="display:none;"></div>
+            
+            <!-- Email Input -->
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Institute Email" required>
+                <label for="email"></label>
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <label for="password"></label>
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
+
+            <!-- Recover Password Link -->
+            <p class="recover">
+                <a href="#" id="forgotPassword">Forgot Password?</a>
+            </p>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn" id="submitSignIn">Sign In</button>
+        </form>
+
+        <p class="or">----------or--------</p>
+
+        <div class="links">
+            <p>Don't have an Institute account yet?</p>
+            <button type="button" id="signUpButton" class="switch-btn">Register Now</button>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Error</h2>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Success</h2>
+            <p id="successMessage"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2023 Institute Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="login-script.js"></script>
+    <script src="institute-firebaseauth.js"></script>
+
+    <!-- Additional Scripts for Password Strength Meter -->
+    <script>
+        // Password strength indicator
+        document.getElementById('rPassword').addEventListener('input', function() {
+            // Add password strength logic here
+            const password = this.value;
+            const strength = calculatePasswordStrength(password);
+            updatePasswordStrengthIndicator(strength);
+        });
+
+        function calculatePasswordStrength(password) {
+            // Add your password strength calculation logic
+            let strength = 0;
+            if(password.length >= 8) strength++;
+            if(/[A-Z]/.test(password)) strength++;
+            if(/[a-z]/.test(password)) strength++;
+            if(/[0-9]/.test(password)) strength++;
+            if(/[^A-Za-z0-9]/.test(password)) strength++;
+            return strength;
+        }
+
+        function updatePasswordStrengthIndicator(strength) {
+            // Update UI to show password strength
+            // This is a placeholder for the actual implementation
+            console.log('Password strength:', strength);
+        }
+    </script>
+</body>
+</html>
