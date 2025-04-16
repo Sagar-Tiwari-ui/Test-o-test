@@ -21,17 +21,10 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Check authentication state on page load
+// Modified auth state observer - only monitor, don't redirect
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in
-        checkUserAccess(user.email);
-    } else {
-        // No user is signed in, redirect to login page if not already there
-        if (!window.location.href.includes('institute-login.html')) {
-            window.location.href = 'institute-login.html';
-        }
-    }
+    // Only log the state, don't redirect
+    console.log("Auth state changed:", user ? "User is signed in" : "No user signed in");
 });
 
 // Function to check user access and redirect
@@ -40,11 +33,10 @@ async function checkUserAccess(email) {
         const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
         if (userDoc.exists()) {
             const userData = userDoc.data();
-            // Check if user has assigned homepage
             if (userData.assignedHomepage) {
                 window.location.href = userData.assignedHomepage;
             } else {
-                window.location.href = 'homepage.html'; // Default redirect
+                window.location.href = 'homepage.html';
             }
         } else {
             console.error("User document not found");
@@ -67,8 +59,8 @@ function showMessage(message, divId) {
 }
 
 // Sign in users
-const signInButton = document.getElementById('submitSignIn');
-signInButton?.addEventListener('click', async (event) => {
+const signInForm = document.getElementById('signinForm');
+signInForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
@@ -83,8 +75,8 @@ signInButton?.addEventListener('click', async (event) => {
 });
 
 // Sign up new users
-const signUpButton = document.getElementById('submitSignUp');
-signUpButton?.addEventListener('click', async (event) => {
+const signUpForm = document.getElementById('signupForm');
+signUpForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('rEmail').value.trim();
     const password = document.getElementById('rPassword').value.trim();
@@ -130,3 +122,12 @@ export function logout() {
         console.error("Error signing out:", error);
     });
 }
+
+// Clear any existing auth state on page load
+window.addEventListener('load', () => {
+    auth.signOut().then(() => {
+        console.log("Previous auth state cleared");
+    }).catch((error) => {
+        console.error("Error clearing auth state:", error);
+    });
+});
