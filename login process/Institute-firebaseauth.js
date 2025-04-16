@@ -1,6 +1,6 @@
 // Import the functions you need from the Firebase SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
 
@@ -21,124 +21,112 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Predefined homepage assignments
-const teacherHomepages = {
-    "sgmcoaching@gmail.com": "Institute Homepages files/S.G.M. Coaching Center/homepage.html",
-    "ajaycoaching@gmail.com": "Institute Homepages files/Ajay Coaching Center/homepage.html",
-    "Himadrisaha420@gmail.com": "Institute Homepages files/Hima/homepage.html"
-    // Add more email-homepage mappings as needed
-};
+// Check authentication state on page load
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in
+        checkUserAccess(user.email);
+    } else {
+        // No user is signed in, redirect to login page if not already there
+        if (!window.location.href.includes('institute-login.html')) {
+            window.location.href = 'institute-login.html';
+        }
+    }
+});
+
+// Function to check user access and redirect
+async function checkUserAccess(email) {
+    try {
+        const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            // Check if user has assigned homepage
+            if (userData.assignedHomepage) {
+                window.location.href = userData.assignedHomepage;
+            } else {
+                window.location.href = 'homepage.html'; // Default redirect
+            }
+        } else {
+            console.error("User document not found");
+            window.location.href = 'homepage.html';
+        }
+    } catch (error) {
+        console.error("Error checking user access:", error);
+        window.location.href = 'homepage.html';
+    }
+}
 
 // Function to display messages
 function showMessage(message, divId) {
     const messageDiv = document.getElementById(divId);
     messageDiv.style.display = "block";
     messageDiv.innerHTML = message;
-
-    messageDiv.style.transition = "opacity 0.5s ease-in-out";
-    messageDiv.style.opacity = 1;
-
     setTimeout(() => {
-        messageDiv.style.opacity = 0;
-        setTimeout(() => {
-            messageDiv.style.display = "none";
-        }, 500);
+        messageDiv.style.display = "none";
     }, 5000);
 }
 
 // Sign in users
 const signInButton = document.getElementById('submitSignIn');
-signInButton.addEventListener('click', async (event) => {
+signInButton?.addEventListener('click', async (event) => {
     event.preventDefault();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        
-        // Get user data from Firestore
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        const userData = userDoc.data();
-        
-        // Store user data in localStorage
-        localStorage.setItem('loggedInUserId', user.uid);
-        localStorage.setItem('userData', JSON.stringify(userData));
-        
-        showMessage('Login is successful', 'signInMessage');
-        
-        // Get assigned homepage from userData or default mapping
-        let homepageURL;
-        if (userData && userData.assignedHomepage) {
-            homepageURL = userData.assignedHomepage;
-        } else {
-            homepageURL = teacherHomepages[email] || 'homepage.html'; // Default homepage if no assignment found
-        }
-        
-        window.location.href = homepageURL;
+        showMessage('Login successful', 'signInMessage');
+        checkUserAccess(email);
     } catch (error) {
-        console.error("Sign-in error details:", error);
-        const errorCode = error.code;
-
-        switch (errorCode) {
-            case 'auth/user-not-found':
-            case 'auth/invalid-credential':
-                showMessage('Account does not exist. Please register first.', 'signInMessage');
-                break;
-            case 'auth/wrong-password':
-                showMessage('Incorrect password. Please try again.', 'signInMessage');
-                break;
-            case 'auth/invalid-email':
-                showMessage('Invalid email address format.', 'signInMessage');
-                break;
-            default:
-                showMessage('An error occurred during login. Please try again.', 'signInMessage');
-                break;
-        }
+        handleAuthError(error, 'signInMessage');
     }
 });
 
 // Sign up new users
 const signUpButton = document.getElementById('submitSignUp');
-signUpButton.addEventListener('click', async (event) => {
+signUpButton?.addEventListener('click', async (event) => {
     event.preventDefault();
     const email = document.getElementById('rEmail').value.trim();
     const password = document.getElementById('rPassword').value.trim();
-    const firstName = document.getElementById('fName').value.trim();
-    const lastName = document.getElementById('lName').value.trim();
-    const CoachingSector = document.getElementById('Csector').value.trim();
-    const MobileNumber = document.getElementById('MNumber').value.trim();
+    const userData = {
+        email,
+        firstName: document.getElementById('fName').value.trim(),
+        lastName: document.getElementById('lName').value.trim(),
+        CoachingSector: document.getElementById('Csector').value.trim(),
+        MobileNumber: document.getElementById('MNumber').value.trim(),
+    };
 
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        
-        // Assign homepage during registration
-        const assignedHomepage = teacherHomepages[email] || 'homepage.html';
-        
-        const userData = {
-            email,
-            firstName,
-            lastName,
-            CoachingSector,
-            MobileNumber,
-            fullName: `${firstName} ${lastName}`,
-            assignedHomepage // Store the assigned homepage in user data
-        };
-
-        await setDoc(doc(db, "users", user.uid), userData);
+        await setDoc(doc(db, "users", userCredential.user.uid), userData);
         showMessage('Account Created Successfully', 'signUpMessage');
         window.location.href = 'institute-login.html';
     } catch (error) {
-        console.error("Sign-up error details:", error);
-        const errorCode = error.code;
-
-        if (errorCode === 'auth/email-already-in-use') {
-            showMessage('Email Address Already Exists!', 'signUpMessage');
-        } else if (errorCode === 'auth/weak-password') {
-            showMessage('Password should be at least 6 characters.', 'signUpMessage');
-        } else {
-            showMessage('Unable to create User. Please try again.', 'signUpMessage');
-        }
+        handleAuthError(error, 'signUpMessage');
     }
 });
+
+// Handle authentication errors
+function handleAuthError(error, messageDiv) {
+    console.error("Auth error:", error);
+    const errorMessages = {
+        'auth/user-not-found': 'Account does not exist. Please register first.',
+        'auth/wrong-password': 'Incorrect password. Please try again.',
+        'auth/invalid-email': 'Invalid email address format.',
+        'auth/email-already-in-use': 'Email Address Already Exists!',
+        'auth/weak-password': 'Password should be at least 6 characters.',
+        'auth/invalid-credential': 'Invalid credentials. Please check your email and password.',
+    };
+    
+    const message = errorMessages[error.code] || 'An error occurred. Please try again.';
+    showMessage(message, messageDiv);
+}
+
+// Logout functionality
+export function logout() {
+    auth.signOut().then(() => {
+        window.location.href = 'institute-login.html';
+    }).catch((error) => {
+        console.error("Error signing out:", error);
+    });
+}
