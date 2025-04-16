@@ -42,7 +42,6 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-    // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return passwordRegex.test(password);
 }
@@ -119,22 +118,59 @@ const rememberMeCheckbox = document.getElementById('rememberMe');
 
 rememberMeCheckbox.addEventListener('change', function() {
     if (this.checked) {
+        const email = emailInput.value;
         localStorage.setItem('rememberMe', 'true');
+        localStorage.setItem('savedEmail', email);
     } else {
         localStorage.removeItem('rememberMe');
+        localStorage.removeItem('savedEmail');
     }
 });
 
-// Check if user was remembered
+// Modified window load event - Only fills in saved credentials without auto sign-in
 window.addEventListener('load', function() {
     if (localStorage.getItem('rememberMe') === 'true') {
         rememberMeCheckbox.checked = true;
-        // You can also auto-fill the email if stored
         const savedEmail = localStorage.getItem('savedEmail');
         if (savedEmail) {
             emailInput.value = savedEmail;
         }
     }
+});
+
+// Sign In Form Submit Handler
+document.getElementById('signinForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    // Validate inputs before proceeding
+    if (!validateEmail(email)) {
+        showInputError(emailInput, 'Please enter a valid email address');
+        return;
+    }
+
+    if (password.length < 8) {
+        showInputError(passwordInput, 'Password must be at least 8 characters long');
+        return;
+    }
+
+    showLoading();
+    // Your sign-in logic here
+    // This will only run when the sign-in button is clicked
+});
+
+// Sign Up Form Submit Handler
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validate all inputs before proceeding
+    const isValid = validateAllInputs();
+    if (!isValid) return;
+
+    showLoading();
+    // Your sign-up logic here
 });
 
 // Modal Handling
@@ -183,6 +219,28 @@ function addPasswordToggle(passwordInput) {
 // Add password visibility toggle to both password fields
 addPasswordToggle(passwordInput);
 addPasswordToggle(registerPasswordInput);
+
+// Validate all inputs for sign up form
+function validateAllInputs() {
+    let isValid = true;
+    
+    if (!validateEmail(registerEmailInput.value)) {
+        showInputError(registerEmailInput, 'Please enter a valid email address');
+        isValid = false;
+    }
+
+    if (!validatePassword(registerPasswordInput.value)) {
+        showInputError(registerPasswordInput, 'Invalid password format');
+        isValid = false;
+    }
+
+    if (!validateMobile(mobileInput.value)) {
+        showInputError(mobileInput, 'Please enter a valid 10-digit mobile number');
+        isValid = false;
+    }
+
+    return isValid;
+}
 
 // Add necessary styles
 const style = document.createElement('style');
