@@ -1,1 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himadri Saha - Excellence in Education</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="top-bar">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +91 9827xxxxxx</span>
+                <span><i class="fas fa-envelope"></i> Himadrisaha420@gmail.com</span>
+            </div>
+            <div class="admin-login">
+                <button onclick="adminLogin()"><i class="fas fa-user-lock"></i> Admin Login</button>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <img src="logo.png" alt="Perfect Coaching Classes Logo">
+            </div>
+            <div class="header-content">
+                <h1>Himadri Saha</h1>
+                <p>Nurturing Minds, Shaping Futures</p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Excellence in Education</h2>
+            <p>Preparing students for JEE, NEET & Board Exams with expertise and dedication</p>
+            <div class="cta-buttons">
+                <a href="#courses" class="btn primary">Explore Courses</a>
+                <a href="#" class="btn secondary" onclick="showLoginModal()">Student Login</a>
+            </div>
+        </div>
+    </section>
 
+    <!-- Student Login/Signup Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="container" id="signup" style="display:none;">
+            <span class="close-btn">&times;</span>
+            <h1 class="form-title">Register</h1>
+            <form method="post" action="">
+                <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fName" placeholder="First Name" required>
+                    <label for="fname">First Name</label>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="lName" placeholder="Last Name" required>
+                    <label for="lName">Last Name</label>
+                </div>
+                <div class="input-group">
+                  <i class="fas fa-phone"></i>
+                  <input type="text" id="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+                  <label for="mobile">Mobile Number</label>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="text" id="course" placeholder="Course" required>
+                <label for="course">Course</label>
+            </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="rEmail" placeholder="Email" required>
+                    <label for="rEmail">Email</label>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="rPassword" placeholder="Password" required>
+                    <label for="rPassword">Password</label>
+                </div>
+                <button class="btn" id="submitSignUp">Sign Up</button>
+            </form>
+            <p class="or">----------or--------</p>
+            <div class="links">
+                <p>Already Have Account?</p>
+                <button id="signInButton">Sign In</button>
+            </div>
+        </div>
+
+        <div class="container" id="signIn">
+            <span class="close-btn">&times;</span>
+            <h1 class="form-title">Sign In</h1>
+            <form method="post" action="">
+                <div id="signInMessage" class="messageDiv" style="display:none;"></div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <label for="password">Password</label>
+                </div>
+                <p class="recover">
+                    <a href="#">Recover Password</a>
+                </p>
+                <button class="btn" id="submitSignIn">Sign In</button>
+            </form>
+            <p class="or">----------or--------</p>
+            <div class="links">
+                <p>Don't have account yet?</p>
+                <button id="signUpButton">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Why Choose Himadri Saha?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Expert Faculty</h3>
+                <p>Experienced teachers with proven track record</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-book-reader"></i>
+                <h3>Comprehensive Study Material</h3>
+                <p>Well-researched content aligned with latest patterns</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Regular Assessment</h3>
+                <p>Weekly tests and performance tracking</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users"></i>
+                <h3>Small Batch Size</h3>
+                <p>Personal attention to every student</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <h2>Our Programs</h2>
+        <div class="courses-grid">
+            <div class="course-card">
+                <h3>JEE Main & Advanced</h3>
+                <p>Comprehensive preparation for engineering entrance</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            <div class="course-card">
+                <h3>NEET Preparation</h3>
+                <p>Expert guidance for medical aspirants</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            <div class="course-card">
+                <h3>Board Exam Excellence</h3>
+                <p>Focused preparation for 11th & 12th boards</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results">
+        <h2>Our Success Stories</h2>
+        <div class="results-stats">
+            <div class="stat">
+                <h3>500+</h3>
+                <p>Students Selected in IITs</p>
+            </div>
+            <div class="stat">
+                <h3>1000+</h3>
+                <p>Medical College Selections</p>
+            </div>
+            <div class="stat">
+                <h3>95%+</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="contact">
+        <h2>Visit Us</h2>
+        <div class="location-content">
+            <div class="address">
+                <h3>Himadri Saha</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Near City Center</p>
+                <p>West Bangal</p>
+                <p>India - 145453</p>
+                <p><i class="fas fa-phone"></i> +91 6265xxxxxx</p>
+                <p><i class="fas fa-envelope"></i> Himadrisaha420@gmail.com</p>
+            </div>
+            <div class="map">
+                <!-- Add Google Maps iframe here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" onclick="showLoginModal()">Student Login</a></li>
+                    <li><a href="#results">Results</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Himadri Saha. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Configuration -->
+    <script>
+        const firebaseConfig = {
+    apiKey: "AIzaSyDzZG2MtJb244u0g4IX59tGWATK-KGht-w",
+    authDomain: "testotest-b77f3.firebaseapp.com",
+    projectId: "testotest-b77f3",
+    storageBucket: "testotest-b77f3.appspot.com",
+    messagingSenderId: "57536899329",
+    appId: "1:57536899329:web:d07442630c944086171300",
+    measurementId: "G-52156S4D02"
+  };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+   <!-- Scripts -->
+   <script src="script.js"></script>
+   <script>
+       function showLoginModal() {
+           document.getElementById('authModal').style.display = 'block';
+           document.getElementById('overlay').style.display = 'block';
+       }
+
+       function hideLoginModal() {
+           document.getElementById('authModal').style.display = 'none';
+           document.getElementById('overlay').style.display = 'none';
+       }
+
+       // Add event listener to close button
+       document.querySelectorAll('.close-btn').forEach(btn => {
+           btn.addEventListener('click', hideLoginModal);
+       });
+   </script>
+</body>
+</html>
