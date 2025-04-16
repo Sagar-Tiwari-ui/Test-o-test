@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { text: "The only person who is educated is the one who has learned how to learn and change.", author: "Carl Rogers" }
     ];
 
-    // Update quote randomly
+    // Update quote randomly with fade effect
     function updateQuote() {
         const quoteText = document.getElementById('quote-text');
         const quoteAuthor = document.getElementById('quote-author');
@@ -57,25 +57,25 @@ document.addEventListener('DOMContentLoaded', function() {
     updateQuote();
     setInterval(updateQuote, 10000);
 
-    // Handle navigation buttons
+    // Handle navigation and hero buttons using data-href
+    function handleButtonClick(button) {
+        const href = button.dataset.href;
+        if (href) {
+            window.location.href = href;
+        }
+    }
+
+    // Add click handlers to nav buttons
     document.querySelectorAll('.nav-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const href = this.getAttribute('onclick')?.match(/href='(.+?)'/)?.[1];
-            if (href) {
-                e.preventDefault();
-                window.location.href = href;
-            }
+        button.addEventListener('click', function() {
+            handleButtonClick(this);
         });
     });
 
-    // Handle hero buttons
+    // Add click handlers to hero buttons
     document.querySelectorAll('.hero-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const href = this.getAttribute('onclick')?.match(/href='(.+?)'/)?.[1];
-            if (href) {
-                e.preventDefault();
-                window.location.href = href;
-            }
+        button.addEventListener('click', function() {
+            handleButtonClick(this);
         });
     });
 
@@ -131,5 +131,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 hamburger.classList.remove('active');
             }
         }, 250);
+    });
+
+    // Optional: Add loading state to buttons
+    function addLoadingState(button) {
+        button.classList.add('loading');
+        button.disabled = true;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+        return originalText;
+    }
+
+    function removeLoadingState(button, originalText) {
+        button.classList.remove('loading');
+        button.disabled = false;
+        button.innerHTML = originalText;
+    }
+
+    // Optional: Handle button loading states
+    document.querySelectorAll('.nav-btn, .hero-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const originalText = addLoadingState(this);
+            setTimeout(() => {
+                removeLoadingState(this, originalText);
+                handleButtonClick(this);
+            }, 500);
+        });
     });
 });
