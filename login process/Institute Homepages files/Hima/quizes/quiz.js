@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set up initial question palette explicitly
     updateQuestionPalette(quizState.currentSubject);
 
-
+    // Prevent right-click context menu
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
 
     // Update question counts for each subject
     ['physics', 'chemistry', 'biology'].forEach(subject => {
