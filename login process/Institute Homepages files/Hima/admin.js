@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <script src="marks.js"></script>
 
 
-            <script type="module" src="marks.js"></script>
+            <script type="module" src="Marks.js"></script>
         </head>
         <body>
             <div class="quiz-container">
