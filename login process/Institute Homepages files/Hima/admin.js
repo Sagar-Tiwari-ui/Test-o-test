@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let generatedBlob;
 
     // GitHub API configuration
-    const GITHUB_TOKEN = 'YOUR_PERSONAL_ACCESS_TOKEN'; // Replace with your PAT (use backend in production)
-    const REPO_OWNER = 'YOUR_GITHUB_USERNAME'; // Replace with your GitHub username
-    const REPO_NAME = 'YOUR_REPOSITORY_NAME'; // Replace with your repository name (e.g., username.github.io)
+    const GITHUB_TOKEN = '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'; // Replace with your PAT (use backend in production)
+    const REPO_OWNER = 'Sagar Tiwari'; // Replace with your GitHub username
+    const REPO_NAME = 'Sagar-Tiwari-ui'; // Replace with your repository name (e.g., username.github.io)
     const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
 
     // Handle Excel file submission for quiz generation
