@@ -11,11 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // GitHub API configuration
     const GITHUB_TOKEN = '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'; // Replace with your new PAT (use backend in production)
-    const REPO_OWNER = 'Sagar-Tiwari'; // GitHub username
+    const REPO_OWNER = 'Sagar-Tiwari'; // Corrected GitHub username
     const REPO_NAME = 'Sagar-Tiwari-ui'; // Repository name
     const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
-    const BRANCH = 'main'; // Adjust if using 'gh-pages' or another branch
-    const DOMAIN = 'https://test-o-test.com'; // Custom domain for URLs
+    const BRANCH = 'main'; // Adjust if using 'gh-pages'
+    const DOMAIN = 'https://test-o-test.com'; // Custom domain
+    const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB GitHub limit
 
     // Handle Excel file submission for quiz generation
     submitBtn.addEventListener('click', function () {
@@ -51,11 +52,19 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             return;
         }
-        if (!file.name.endsWith('.html')) {
+        if (!file.name.toLowerCase().endsWith('.html')) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Invalid File',
                 text: "Please select a valid HTML file."
+            });
+            return;
+        }
+        if (file.size > MAX_FILE_SIZE) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'File Too Large',
+                text: "HTML file must be less than 100MB."
             });
             return;
         }
@@ -66,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const content = event.target.result;
                 const timestamp = new Date().toISOString().replace(/[:.]/g, '');
-                const fileName = `${timestamp}_${file.name}`;
+                const safeFileName = file.name.replace(/\s+/g, '_'); // Replace spaces with underscores
+                const fileName = `${timestamp}_${safeFileName}`;
                 const path = `quizzes/${fileName}`;
 
                 // Encode content as Base64
@@ -92,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.message || 'Failed to upload HTML file');
+                    throw new Error(errorData.message || `Failed to upload HTML file: ${response.status}`);
                 }
 
                 Swal.fire({
@@ -106,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Upload Failed',
-                    text: `Failed to upload HTML file: ${error.message}. Check token, repository permissions, or network.`
+                    text: `Failed to upload HTML file: ${error.message}. Check PAT, repository, or network.`
                 });
             }
         };
@@ -144,12 +154,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let completedUploads = 0;
         validFiles.forEach(file => {
+            if (file.size > MAX_FILE_SIZE) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'File Too Large',
+                    text: `Image "${file.name}" must be less than 100MB.`
+                });
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = async function (event) {
                 try {
                     const content = event.target.result.split(',')[1]; // Get Base64 part
                     const timestamp = new Date().toISOString().replace(/[:.]/g, '');
-                    const fileName = `${timestamp}_${file.name}`;
+                    const safeFileName = file.name.replace(/\s+/g, '_'); // Replace spaces with underscores
+                    const fileName = `${timestamp}_${safeFileName}`;
                     const path = `quizzes/Saha/${fileName}`;
 
                     // GitHub API payload
@@ -172,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (!response.ok) {
                         const errorData = await response.json();
-                        throw new Error(errorData.message || `Failed to upload image ${file.name}`);
+                        throw new Error(errorData.message || `Failed to upload image ${file.name}: ${response.status}`);
                     }
 
                     completedUploads++;
@@ -189,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     Swal.fire({
                         icon: 'error',
                         title: 'Upload Failed',
-                        text: `Failed to upload image "${file.name}": ${error.message}. Check token, repository permissions, or network.`
+                        text: `Failed to upload image "${file.name}": ${error.message}. Check PAT, repository, or network.`
                     });
                 }
             };
@@ -372,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
             if (imagePath) {
-                // Use absolute URL for images to ensure they load from test-o-test.com
+                // Use absolute URL for images
                 const absoluteImagePath = imagePath.startsWith('/') ? `${DOMAIN}${imagePath}` : `${DOMAIN}/quizzes/Saha/${imagePath}`;
                 questionBlock += `
                 <img src="${absoluteImagePath}" alt="Question Image" style="max-width: 100%; height: auto;">
