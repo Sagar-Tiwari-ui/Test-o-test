@@ -1,35 +1,106 @@
-// Show/Hide Auth Modal
-function showLoginModal() {
-    document.getElementById('authModal').style.display = 'block';
-    document.getElementById('signIn').style.display = 'block';
-    document.getElementById('signup').style.display = 'none';
-}
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyDzZG2MtJb244u0g4IX59tGWATK-KGht-w",
+    authDomain: "testotest-b77f3.firebaseapp.com",
+    projectId: "testotest-b77f3",
+    storageBucket: "testotest-b77f3.appspot.com",
+    messagingSenderId: "57536899329",
+    appId: "1:57536899329:web:d07442630c944086171300",
+    measurementId: "G-52156S4D02"
+};
+firebase.initializeApp(firebaseConfig);
 
-// Close Modal
-document.querySelectorAll('.close-btn').forEach(btn => {
-    btn.onclick = function() {
-        document.getElementById('authModal').style.display = 'none';
-        // Clear error messages when closing
-        document.getElementById('signInMessage').style.display = 'none';
-        document.getElementById('signUpMessage').style.display = 'none';
+// Ensure modal is hidden on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const authModal = document.getElementById('authModal');
+    const overlay = document.getElementById('overlay');
+    const signInSection = document.getElementById('signIn');
+    const signUpSection = document.getElementById('signup');
+
+    if (authModal && overlay) {
+        authModal.style.display = 'none';
+        overlay.style.display = 'none';
+        signInSection.style.display = 'block';
+        signUpSection.style.display = 'none';
     }
+
+    // Attach event listener to Student Login button
+    const studentLoginBtn = document.querySelector('.btn.secondary[onclick="showLoginModal()"]');
+    if (studentLoginBtn) {
+        studentLoginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showLoginModal();
+        });
+    }
+
+    // Close modal on close button click
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            hideLoginModal();
+            clearMessages();
+        });
+    });
+
+    // Switch between Sign In and Sign Up
+    document.getElementById('signUpButton').addEventListener('click', () => {
+        signInSection.style.display = 'none';
+        signUpSection.style.display = 'block';
+        clearMessages();
+    });
+
+    document.getElementById('signInButton').addEventListener('click', () => {
+        signUpSection.style.display = 'none';
+        signInSection.style.display = 'block';
+        clearMessages();
+    });
+
+    // Close modal on overlay click
+    overlay.addEventListener('click', () => {
+        hideLoginModal();
+        clearMessages();
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            hideLoginModal();
+            clearMessages();
+        }
+    });
 });
 
-// Switch between Sign In and Sign Up
-document.getElementById('signUpButton').onclick = function() {
-    document.getElementById('signIn').style.display = 'none';
-    document.getElementById('signup').style.display = 'block';
-    // Clear error messages when switching
-    document.getElementById('signInMessage').style.display = 'none';
-    document.getElementById('signUpMessage').style.display = 'none';
+// Show/Hide Auth Modal
+function showLoginModal() {
+    const authModal = document.getElementById('authModal');
+    const overlay = document.getElementById('overlay');
+    const signInSection = document.getElementById('signIn');
+    const signUpSection = document.getElementById('signup');
+    
+    if (authModal && overlay) {
+        authModal.style.display = 'block';
+        overlay.style.display = 'block';
+        signInSection.style.display = 'block';
+        signUpSection.style.display = 'none';
+        // Focus on first input for accessibility
+        const firstInput = signInSection.querySelector('input');
+        if (firstInput) firstInput.focus();
+    }
 }
 
-document.getElementById('signInButton').onclick = function() {
-    document.getElementById('signup').style.display = 'none';
-    document.getElementById('signIn').style.display = 'block';
-    // Clear error messages when switching
-    document.getElementById('signInMessage').style.display = 'none';
-    document.getElementById('signUpMessage').style.display = 'none';
+function hideLoginModal() {
+    const authModal = document.getElementById('authModal');
+    const overlay = document.getElementById('overlay');
+    if (authModal && overlay) {
+        authModal.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+}
+
+function clearMessages() {
+    const signInMessage = document.getElementById('signInMessage');
+    const signUpMessage = document.getElementById('signUpMessage');
+    if (signInMessage) signInMessage.style.display = 'none';
+    if (signUpMessage) signUpMessage.style.display = 'none';
 }
 
 // Admin Login Function
@@ -46,15 +117,15 @@ function adminLogin() {
 
 // Course Links
 document.querySelectorAll('.course-card .btn').forEach(btn => {
-    btn.onclick = function(e) {
+    btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const courseName = this.parentElement.querySelector('h3').textContent;
+        const courseName = btn.parentElement.querySelector('h3').textContent;
         window.location.href = `${courseName.toLowerCase().replace(/\s+/g, '-')}.html`;
-    }
+    });
 });
 
 // Handle Sign In
-document.getElementById('submitSignIn').onclick = function(e) {
+document.getElementById('submitSignIn').addEventListener('click', (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -69,15 +140,19 @@ document.getElementById('submitSignIn').onclick = function(e) {
     // Firebase authentication
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Successful login
             const user = userCredential.user;
+            // Store user data in sessionStorage
+            sessionStorage.setItem('user', JSON.stringify({
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName || ''
+            }));
             showMessage(messageDiv, 'Login successful! Redirecting...', 'success');
             setTimeout(() => {
                 window.location.href = "student-dashboard.html";
             }, 1500);
         })
         .catch((error) => {
-            // Handle specific error cases
             let errorMessage;
             switch (error.code) {
                 case 'auth/user-not-found':
@@ -94,10 +169,10 @@ document.getElementById('submitSignIn').onclick = function(e) {
             }
             showMessage(messageDiv, errorMessage, 'error');
         });
-}
+});
 
 // Handle Sign Up
-document.getElementById('submitSignUp').onclick = function(e) {
+document.getElementById('submitSignUp').addEventListener('click', (e) => {
     e.preventDefault();
     const firstName = document.getElementById('fName').value;
     const lastName = document.getElementById('lName').value;
@@ -123,7 +198,13 @@ document.getElementById('submitSignUp').onclick = function(e) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            // Add user details to Firestore with additional fields
+            // Store user data in sessionStorage
+            sessionStorage.setItem('user', JSON.stringify({
+                uid: user.uid,
+                email: user.email,
+                displayName: `${firstName} ${lastName}`
+            }));
+            // Add user details to Firestore
             return firebase.firestore().collection('Hima').doc(user.uid).set({
                 firstName: firstName,
                 lastName: lastName,
@@ -137,25 +218,21 @@ document.getElementById('submitSignUp').onclick = function(e) {
                     total: 0,
                     quizzes: [],
                     subjects: {
-                        // You can customize this based on your courses
                         Mathematics: 0,
                         Chemistry: 0,
                         Biology: 0,
-                        Physics: 0,
-                        // Add more subjects as needed
+                        Physics: 0
                     }
                 }
             });
         })
-
         .then(() => {
             showMessage(messageDiv, 'Account created successfully! Redirecting...', 'success');
             setTimeout(() => {
-                window.location.href = "homepage.html";
+                window.location.href = "student-dashboard.html";
             }, 1500);
         })
         .catch((error) => {
-            // Handle specific error cases
             let errorMessage;
             switch (error.code) {
                 case 'auth/email-already-in-use':
@@ -172,40 +249,28 @@ document.getElementById('submitSignUp').onclick = function(e) {
             }
             showMessage(messageDiv, errorMessage, 'error');
         });
-}
+});
 
-// Utility function to validate mobile number
+// Utility Functions
 function isValidMobile(mobile) {
     const mobileRegex = /^[0-9]{10}$/;
     return mobileRegex.test(mobile);
 }
 
-// Utility function to generate student ID
 function generateStudentId(course) {
     const year = new Date().getFullYear();
     const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
     return `${course}${year}${random}`;
 }
 
-// Utility function to show messages
 function showMessage(element, message, type) {
     element.textContent = message;
     element.style.display = 'block';
     element.className = 'messageDiv ' + type;
 }
 
-// Close modal when clicking outside
-window.onclick = function(event) {
-    if (event.target == document.getElementById('authModal')) {
-        document.getElementById('authModal').style.display = 'none';
-        // Clear error messages
-        document.getElementById('signInMessage').style.display = 'none';
-        document.getElementById('signUpMessage').style.display = 'none';
-    }
-}
-
-// Add input validation listeners
-document.getElementById('mobile').addEventListener('input', function(e) {
+// Input Validation
+document.getElementById('mobile').addEventListener('input', (e) => {
     const mobile = e.target.value;
     if (mobile && !isValidMobile(mobile)) {
         e.target.setCustomValidity('Please enter a valid 10-digit mobile number');
@@ -214,14 +279,13 @@ document.getElementById('mobile').addEventListener('input', function(e) {
     }
 });
 
-// Prevent non-numeric input in mobile field
-document.getElementById('mobile').addEventListener('keypress', function(e) {
+document.getElementById('mobile').addEventListener('keypress', (e) => {
     if (e.key < '0' || e.key > '9') {
         e.preventDefault();
     }
 });
 
-// Add CSS styles
+// Inline Styles for Forms
 const style = document.createElement('style');
 style.textContent = `
     .messageDiv {
@@ -277,10 +341,8 @@ document.head.appendChild(style);
 // Check Authentication State
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        // User is signed in
         console.log('User is signed in:', user.email);
     } else {
-        // User is signed out
         console.log('User is signed out');
     }
 });
