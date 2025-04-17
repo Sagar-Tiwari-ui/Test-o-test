@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let generatedBlob;
 
     // GitHub API configuration
-    const GITHUB_TOKEN = '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'; // Replace with your new PAT (use backend in production)
+    const GITHUB_TOKEN = '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'; // Replace with your new PAT (use backend in production)
     const REPO_OWNER = 'Sagar-Tiwari-ui'; // Corrected GitHub username
     const REPO_NAME = 'Test-o-test'; // Repository name
     const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
