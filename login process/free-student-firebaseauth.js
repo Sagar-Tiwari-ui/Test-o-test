@@ -51,7 +51,7 @@ signInButton.addEventListener('click', (event) => {
             const user = userCredential.user;
             localStorage.setItem('loggedInUserId', user.uid);
             showMessage('Login is successful', 'signInMessage');
-            window.location.href = 'Free mock tests/free-test-series.html';
+            window.location.href = 'Free mock tests/Free-test-series.html';
         })
         .catch((error) => {
             // Log the error for detailed debugging
