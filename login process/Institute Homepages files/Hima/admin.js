@@ -4,11 +4,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const timeDurationInput = document.getElementById('timeDuration');
     const downloadLink = document.getElementById('downloadLink');
     const imageFilesInput = document.getElementById('imageInput');
-    const uploadImagesBtn = document.getElementById('uploadImagesBtn');
-    const imageUploadStatus = document.getElementById('imageUploadMessage');
+    const uploadImageBtn = document.getElementById('uploadImageBtn');
     const htmlInput = document.getElementById('htmlInput');
-    const htmlUploadStatus = document.getElementById('htmlUploadMessage');
+    const uploadHtmlBtn = document.getElementById('uploadHtmlBtn');
     let generatedBlob;
+
+    // GitHub API configuration
+    const GITHUB_TOKEN = 'YOUR_PERSONAL_ACCESS_TOKEN'; // Replace with your PAT (use backend in production)
+    const REPO_OWNER = 'YOUR_GITHUB_USERNAME'; // Replace with your GitHub username
+    const REPO_NAME = 'YOUR_REPOSITORY_NAME'; // Replace with your repository name (e.g., username.github.io)
+    const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
 
     // Handle Excel file submission for quiz generation
     submitBtn.addEventListener('click', function () {
@@ -33,6 +38,170 @@ document.addEventListener('DOMContentLoaded', function () {
         processExcel(file, duration);
     });
 
+    // Handle HTML file upload to GitHub
+    uploadHtmlBtn.addEventListener('click', function () {
+        const file = htmlInput.files[0];
+        if (!file) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Missing File',
+                text: "Please select an HTML file to upload."
+            });
+            return;
+        }
+        if (!file.name.endsWith('.html')) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Invalid File',
+                text: "Please select a valid HTML file."
+            });
+            return;
+        }
+
+        // Read file as text
+        const reader = new FileReader();
+        reader.onload = async function (event) {
+            try {
+                const content = event.target.result;
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '');
+                const fileName = `${timestamp}_${file.name}`;
+                const path = `quizzes/${fileName}`;
+
+                // Encode content as Base64
+                const base64Content = btoa(content);
+
+                // GitHub API payload
+                const payload = {
+                    message: `Upload HTML file ${fileName}`,
+                    content: base64Content,
+                    branch: 'main' // Adjust if using a different branch
+                };
+
+                // Upload to GitHub
+                const response = await fetch(`${BASE_URL}/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to upload HTML file');
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Upload Successful',
+                    text: `HTML file "${file.name}" uploaded to quizzes/${fileName}`
+                });
+                htmlInput.value = ''; // Clear input
+            } catch (error) {
+                console.error('HTML Upload Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Failed',
+                    text: `Failed to upload HTML file: ${error.message}. Check token, permissions, or network.`
+                });
+            }
+        };
+        reader.onerror = function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'File Reading Error',
+                text: 'Failed to read the HTML file.'
+            });
+        };
+        reader.readAsText(file);
+    });
+
+    // Handle multiple image uploads to GitHub
+    uploadImageBtn.addEventListener('click', function () {
+        const files = imageFilesInput.files;
+        if (files.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Missing Files',
+                text: "Please select at least one JPG image to upload."
+            });
+            return;
+        }
+
+        const validFiles = Array.from(files).filter(file => file.name.toLowerCase().endsWith('.jpg'));
+        if (validFiles.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Invalid Files',
+                text: "Please select valid JPG images."
+            });
+            return;
+        }
+
+        let completedUploads = 0;
+        validFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = async function (event) {
+                try {
+                    const content = event.target.result.split(',')[1]; // Get Base64 part
+                    const timestamp = new Date().toISOString().replace(/[:.]/g, '');
+                    const fileName = `${timestamp}_${file.name}`;
+                    const path = `quizzes/Saha/${fileName}`;
+
+                    // GitHub API payload
+                    const payload = {
+                        message: `Upload image ${fileName}`,
+                        content: content,
+                        branch: 'main' // Adjust if using a different branch
+                    };
+
+                    // Upload to GitHub
+                    const response = await fetch(`${BASE_URL}/${path}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${GITHUB_TOKEN}`,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/vnd.github.v3+json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || `Failed to upload image ${file.name}`);
+                    }
+
+                    completedUploads++;
+                    if (completedUploads === validFiles.length) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Upload Successful',
+                            text: `${validFiles.length} image(s) uploaded to quizzes/Saha/`
+                        });
+                        imageFilesInput.value = ''; // Clear input
+                    }
+                } catch (error) {
+                    console.error('Image Upload Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Upload Failed',
+                        text: `Failed to upload image "${file.name}": ${error.message}. Check token, permissions, or network.`
+                    });
+                }
+            };
+            reader.onerror = function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Reading Error',
+                    text: `Failed to read image "${file.name}".`
+                });
+            };
+            reader.readAsDataURL(file); // Read as Base64
+        });
+    });
+
     // Process Excel and generate HTML
     function processExcel(file, duration) {
         const reader = new FileReader();
@@ -42,29 +211,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
                 
-                // Improved data parsing with more robust handling
                 const jsonData = XLSX.utils.sheet_to_json(firstSheet, { 
                     header: 1,
-                    defval: '' // Provide default empty string for undefined cells
+                    defval: ''
                 });
 
-                // Validate data
                 if (!jsonData || jsonData.length < 2) {
                     throw new Error('No data found in the Excel sheet');
                 }
 
-                // Generate HTML content
                 const htmlContent = generateHTMLFromExcel(jsonData, duration);
-                
-                // Create downloadable file
                 createDownloadableQuiz(htmlContent);
             } catch (error) {
                 console.error('Excel Processing Error:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Excel Processing Error',
-                    text: `Failed to process the Excel file: ${error.message}. 
-                           Please check the file format and ensure it contains valid data.`
+                    text: `Failed to process the Excel file: ${error.message}. Please check the file format and ensure it contains valid data.`
                 });
             }
         };
@@ -83,18 +246,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Create downloadable quiz HTML file
     function createDownloadableQuiz(htmlContent) {
-        // Create a Blob with the HTML content
         const blob = new Blob([htmlContent], { type: 'text/html' });
-        
-        // Create a download URL
         const url = URL.createObjectURL(blob);
-        
-        // Update download link
         downloadLink.href = url;
         downloadLink.download = 'quiz.html';
         downloadLink.classList.remove('d-none');
         
-        // Optional: Show success message
         Swal.fire({
             icon: 'success',
             title: 'Quiz Generated!',
@@ -122,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
             <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
             <!-- Then include your marks.js -->
-            <script src="Marks.js"></script>
+            <script src="marks.js"></script>
 
 
             <script type="module" src="Marks.js"></script>
@@ -291,8 +448,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return htmlContent;
     }
 });
-
-
 
 // student update //
 
