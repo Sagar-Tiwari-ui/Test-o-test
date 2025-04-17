@@ -108,7 +108,7 @@ signUpButton.addEventListener('click', (event) => {
             const docRef = doc(db, "users", user.uid);
             return setDoc(docRef, userData).then(() => {
                 showMessage('Account Created Successfully', 'signUpMessage');
-                window.location.href = 'student-login.html';
+                window.location.href = 'free-student-login.html';
             });
         })
         .catch((error) => {
