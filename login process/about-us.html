@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Test-O-Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index-style.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                        url('./assets/images/about-bg.jpg') center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, #fff, transparent);
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .about-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .stats-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .team-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-member img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 5px solid #f8f9fa;
+        }
+
+        .team-member h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #0056b3;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (Same as index.html) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="./assets/images/Logo.jpg" alt="Test-O-Test" id="site-logo">
+                <h1>Test-O-Test</h1>
+            </div>
+            <nav>
+                <div class="hamburger" id="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-buttons" id="nav-menu">
+                    <button data-href="./login process/institute-login.html" class="nav-btn">
+                        <i class="fas fa-building"></i> For Institutes
+                    </button>
+                    <button data-href="./login process/free-student-login.html" class="nav-btn">
+                        <i class="fas fa-user-graduate"></i> For Students
+                    </button>
+                    <button data-href="./contact-us.html" class="nav-btn">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </button>
+                    <button data-href="./about-us.html" class="nav-btn active">
+                        <i class="fas fa-info-circle"></i> About Us
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>Empowering Education Through Technology</h1>
+            <p>Leading the way in online assessment and learning solutions since 2020</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-grid">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>Test-O-Test was born from a simple yet powerful idea: to make quality education and assessment accessible to everyone. What started as a small project has now grown into a comprehensive platform serving thousands of students and institutions.</p>
+                <p>Our journey has been driven by innovation, dedication, and the continuous feedback from our growing community of learners and educators.</p>
+            </div>
+            <div class="about-image">
+                <img src="./assets/images/about-image.jpg" alt="Test-O-Test Journey">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <h3>100,000+</h3>
+                <p>Active Students</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-school"></i>
+                <h3>500+</h3>
+                <p>Partner Institutes</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-book"></i>
+                <h3>50,000+</h3>
+                <p>Test Questions</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>98%</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2 style="text-align: center; margin-bottom: 40px;">Our Leadership Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="./assets/images/team1.jpg" alt="Team Member">
+                <h3>Sagar Tiwari</h3>
+                <p>Founder & CEO</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="./assets/images/team2.jpg" alt="Team Member">
+                <h3>Sidhartha Sharma</h3>
+                <p>Chief Technology Officer</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="./assets/images/team3.jpg" alt="Team Member">
+                <h3>Ajay Rajput</h3>
+                <p>Head of Education</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as index.html) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> test.o.test.career@.com</p>
+                <p><i class="fas fa-phone"></i> +91 783 803 7055</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="./free-student-login.html">Practice Tests</a></li>
+                    <li><a href="./paid-student-login.html">Mock Exams</a></li>
+                    <li><a href="./study-materials.html">Study Materials</a></li>
+                    <li><a href="./faqs.html">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Test-O-Test. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./index-script.js"></script>
+</body>
+</html>
