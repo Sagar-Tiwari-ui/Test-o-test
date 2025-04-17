@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
             <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
             <!-- Then include your marks.js -->
-            <script src="marks.js"></script>
+            <script src="Marks.js"></script>
 
 
             <script type="module" src="Marks.js"></script>
@@ -294,28 +294,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // student update //
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -331,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tableBody.innerHTML = '';
 
         // Fetch students from Firestore
-        firebase.firestore().collection('Perfect_Coaching_Classes')
+        firebase.firestore().collection('Hima')
             .get()
             .then((querySnapshot) => {
                 let performanceRows = [];
@@ -395,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         tableBody.innerHTML = '';
 
-        firebase.firestore().collection('Perfect_Coaching_Classes')
+        firebase.firestore().collection('Hima')
             .where('course', '==', course)
             .get()
             .then((querySnapshot) => {
