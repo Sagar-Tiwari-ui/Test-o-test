@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    let isNavigating = false;
+
     // Handle mobile menu
     const hamburger = document.getElementById('hamburger-menu');
     const navMenu = document.getElementById('nav-menu');
@@ -58,25 +60,38 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateQuote, 10000);
 
     // Handle navigation and hero buttons using data-href
-    function handleButtonClick(button) {
+    function handleButtonClick(button, event) {
+        event.preventDefault(); // Prevent the default action of the click
         const href = button.dataset.href;
-        if (href) {
-            window.location.href = href;
+        if (href && !isNavigating) {
+            isNavigating = true;
+            history.pushState({page: href}, '', href);
+            // Dispatch a custom event to handle the navigation if needed
+            document.dispatchEvent(new CustomEvent('navigate', { detail: { href: href } }));
         }
     }
 
     // Add click handlers to nav buttons
     document.querySelectorAll('.nav-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            handleButtonClick(this);
+        button.addEventListener('click', function(event) {
+            handleButtonClick(this, event);
         });
     });
 
     // Add click handlers to hero buttons
     document.querySelectorAll('.hero-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            handleButtonClick(this);
+        button.addEventListener('click', function(event) {
+            handleButtonClick(this, event);
         });
+    });
+
+    // Listen for the custom 'navigate' event to handle navigation logic
+    document.addEventListener('navigate', function(event) {
+        // Here you can add logic to load content or change the state of the page
+        // without a full reload if you're going for an SPA-like behavior
+        console.log('Navigating to:', event.detail.href);
+        // Reset the navigation flag after handling the navigation
+        isNavigating = false;
     });
 
     // Handle smooth scrolling for anchor links
@@ -150,12 +165,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Optional: Handle button loading states
     document.querySelectorAll('.nav-btn, .hero-btn').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
             const originalText = addLoadingState(this);
             setTimeout(() => {
                 removeLoadingState(this, originalText);
-                handleButtonClick(this);
+                handleButtonClick(this, event);
             }, 500);
         });
     });
+
+    // Reset the flag when the page loads
+    isNavigating = false;
 });
