@@ -35,35 +35,35 @@
             <div class="input-group">
                 <i class="fas fa-user"></i>
                 <input type="text" id="fName" name="firstName" placeholder="First Name" required>
-                <label for="fName"></label>
+                <label for="fName">First Name</label>
             </div>
 
             <!-- Last Name Input -->
             <div class="input-group">
                 <i class="fas fa-user"></i>
                 <input type="text" id="lName" name="lastName" placeholder="Last Name" required>
-                <label for="lName"></label>
+                <label for="lName">Last Name</label>
             </div>
 
             <!-- Email Input -->
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" id="rEmail" name="email" placeholder="Email" required>
-                <label for="rEmail"></label>
+                <label for="rEmail">Email</label>
             </div>
 
             <!-- Coaching Sector Input -->
             <div class="input-group">
                 <i class="fas fa-chalkboard-teacher"></i>
                 <input type="text" id="Csector" name="coachingSector" placeholder="Coaching Sector" required>
-                <label for="Csector"></label>
+                <label for="Csector">Coaching Sector</label>
             </div>
 
             <!-- Mobile Number Input -->
             <div class="input-group">
                 <i class="fas fa-mobile"></i>
                 <input type="tel" id="MNumber" name="mobileNumber" placeholder="Mobile Number" pattern="[0-9]{10}" required>
-                <label for="MNumber"></label>
+                <label for="MNumber">Mobile Number</label>
             </div>
 
             <!-- Password Input -->
@@ -72,7 +72,7 @@
                 <input type="password" id="rPassword" name="password" placeholder="Password" 
                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                <label for="rPassword"></label>
+                <label for="rPassword">Password</label>
             </div>
 
             <!-- Submit Button -->
@@ -97,14 +97,14 @@
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" id="email" name="email" placeholder="Student Email" required>
-                <label for="email"></label>
+                <label for="email">Student Email</label>
             </div>
 
             <!-- Password Input -->
             <div class="input-group">
                 <i class="fas fa-lock"></i>
                 <input type="password" id="password" name="password" placeholder="Password" required>
-                <label for="password"></label>
+                <label for="password">Password</label>
             </div>
 
             <!-- Remember Me Checkbox -->
@@ -158,22 +158,20 @@
         <p>&copy; 2024 Student Management System. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript Files -->
-    <script src="login-script.js"></script>
-    <script src="free-student-login.html"></script>
+<!-- JavaScript Files -->
+<script type="module" src="free-student-firebaseauth.js"></script>
+<script src="login-script.js"></script>
 
     <!-- Additional Scripts for Password Strength Meter -->
     <script>
         // Password strength indicator
         document.getElementById('rPassword').addEventListener('input', function() {
-            // Add password strength logic here
             const password = this.value;
             const strength = calculatePasswordStrength(password);
             updatePasswordStrengthIndicator(strength);
         });
 
         function calculatePasswordStrength(password) {
-            // Add your password strength calculation logic
             let strength = 0;
             if(password.length >= 8) strength++;
             if(/[A-Z]/.test(password)) strength++;
@@ -184,9 +182,9 @@
         }
 
         function updatePasswordStrengthIndicator(strength) {
-            // Update UI to show password strength
-            // This is a placeholder for the actual implementation
+            // Placeholder for UI update
             console.log('Password strength:', strength);
+            // Here you would update the UI to show the strength, e.g., with a progress bar or color change
         }
     </script>
 </body>
