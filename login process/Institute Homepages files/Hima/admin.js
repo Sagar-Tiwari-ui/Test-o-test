@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // GitHub API configuration
     const GITHUB_TOKEN = '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'; // Replace with your new PAT (use backend in production)
-    const REPO_OWNER = 'Sagar-Tiwari'; // Corrected GitHub username
-    const REPO_NAME = 'Sagar-Tiwari-ui'; // Repository name
+    const REPO_OWNER = 'Sagar-Tiwari-ui'; // Corrected GitHub username
+    const REPO_NAME = 'Test-o-test'; // Repository name
     const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
     const BRANCH = 'main'; // Adjust if using 'gh-pages'
     const DOMAIN = 'https://test-o-test.com'; // Custom domain
