@@ -124,7 +124,7 @@ document.getElementById('submitSignUp').onclick = function(e) {
         .then((userCredential) => {
             const user = userCredential.user;
             // Add user details to Firestore with additional fields
-            return firebase.firestore().collection('Perfect_Coaching_Classes').doc(user.uid).set({
+            return firebase.firestore().collection('Hima').doc(user.uid).set({
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
