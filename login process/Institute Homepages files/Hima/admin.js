@@ -295,11 +295,10 @@ document.addEventListener('DOMContentLoaded', function () {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Test Page</title>
-            <link rel="stylesheet" href="/quiz.css">
+            <link rel="stylesheet" href="quiz.css">
             <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
             <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-            <script src="/marks.js"></script>
             <script type="module" src="/Marks.js"></script>
         </head>
         <body>
@@ -393,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (imagePath) {
                 // Use absolute URL for images
-                const absoluteImagePath = imagePath.startsWith('/') ? `${DOMAIN}${imagePath}` : `${DOMAIN}/quizzes/Saha/${imagePath}`;
+                const absoluteImagePath = imagePath.startsWith('/') ? `${DOMAIN}${imagePath}` : `${DOMAIN}/quizes/Saha/${imagePath}`;
                 questionBlock += `
                 <img src="${absoluteImagePath}" alt="Question Image" style="max-width: 100%; height: auto;">
                 `;
@@ -451,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </form>
                 </div>
             </div>
-            <script src="/quiz.js"></script>
+            <script src="quiz.js"></script>
         </body>
         </html>
         `;
