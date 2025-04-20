@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
             <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-            <script type="module" src="/Marks.js"></script>
+            <script type="module" src="Marks.js"></script>
         </head>
         <body>
             <div class="quiz-container">
@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (imagePath) {
                 // Use absolute URL for images
-                const absoluteImagePath = imagePath.startsWith('/') ? `${DOMAIN}${imagePath}` : `${DOMAIN}/quizes/Saha/${imagePath}`;
+                const absoluteImagePath = imagePath.startsWith('/') ? `${DOMAIN}${imagePath}` : /quizes/Saha/${imagePath}`;
                 questionBlock += `
                 <img src="${absoluteImagePath}" alt="Question Image" style="max-width: 100%; height: auto;">
                 `;
