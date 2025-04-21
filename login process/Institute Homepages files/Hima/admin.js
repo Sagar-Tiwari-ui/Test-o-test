@@ -10,13 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let generatedBlob;
 
     // GitHub API configuration
-    const GITHUB_TOKEN = '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'; // Replace with your new PAT (use backend in production)
-    const REPO_OWNER = 'Sagar-Tiwari-ui'; // Corrected GitHub username
-    const REPO_NAME = 'Test-o-test'; // Repository name
-    const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
-    const BRANCH = 'main'; // Adjust if using 'gh-pages'
-    const DOMAIN = 'https://test-o-test.com'; // Custom domain
-    const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB GitHub limit
+    const GITHUB_TOKEN = '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'; // Replace with your PAT (use backend in production)
+    const REPO_OWNER = 'Sagar Tiwari'; // Replace with your GitHub username
+    const REPO_NAME = 'Sagar-Tiwari-ui'; // Replace with your repository name (e.g., username.github.io)
+    const BASE_URL = `https://www.test-o-test.com`;
 
     // Handle Excel file submission for quiz generation
     submitBtn.addEventListener('click', function () {
@@ -52,19 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             return;
         }
-        if (!file.name.toLowerCase().endsWith('.html')) {
+        if (!file.name.endsWith('.html')) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Invalid File',
                 text: "Please select a valid HTML file."
-            });
-            return;
-        }
-        if (file.size > MAX_FILE_SIZE) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'File Too Large',
-                text: "HTML file must be less than 100MB."
             });
             return;
         }
@@ -75,18 +64,17 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const content = event.target.result;
                 const timestamp = new Date().toISOString().replace(/[:.]/g, '');
-                const safeFileName = file.name.replace(/\s+/g, '_'); // Replace spaces with underscores
-                const fileName = `${timestamp}_${safeFileName}`;
+                const fileName = `${timestamp}_${file.name}`;
                 const path = `quizzes/${fileName}`;
 
                 // Encode content as Base64
-                const base64Content = btoa(unescape(encodeURIComponent(content)));
+                const base64Content = btoa(content);
 
                 // GitHub API payload
                 const payload = {
                     message: `Upload HTML file ${fileName}`,
                     content: base64Content,
-                    branch: BRANCH
+                    branch: 'main' // Adjust if using a different branch
                 };
 
                 // Upload to GitHub
@@ -102,13 +90,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.message || `Failed to upload HTML file: ${response.status}`);
+                    throw new Error(errorData.message || 'Failed to upload HTML file');
                 }
 
                 Swal.fire({
                     icon: 'success',
                     title: 'Upload Successful',
-                    text: `HTML file "${file.name}" uploaded to quizzes/${fileName}. Access at ${DOMAIN}/quizzes/${fileName}`
+                    text: `HTML file "${file.name}" uploaded to quizzes/${fileName}`
                 });
                 htmlInput.value = ''; // Clear input
             } catch (error) {
@@ -116,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Upload Failed',
-                    text: `Failed to upload HTML file: ${error.message}. Check PAT, repository, or network.`
+                    text: `Failed to upload HTML file: ${error.message}. Check token, permissions, or network.`
                 });
             }
         };
@@ -154,29 +142,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let completedUploads = 0;
         validFiles.forEach(file => {
-            if (file.size > MAX_FILE_SIZE) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'File Too Large',
-                    text: `Image "${file.name}" must be less than 100MB.`
-                });
-                return;
-            }
-
             const reader = new FileReader();
             reader.onload = async function (event) {
                 try {
                     const content = event.target.result.split(',')[1]; // Get Base64 part
                     const timestamp = new Date().toISOString().replace(/[:.]/g, '');
-                    const safeFileName = file.name.replace(/\s+/g, '_'); // Replace spaces with underscores
-                    const fileName = `${timestamp}_${safeFileName}`;
-                    const path = `quizzes/Saha/${fileName}`;
+                    const fileName = `${timestamp}_${file.name}`;
+                    const path = `quizes/Saha/${fileName}`;
 
                     // GitHub API payload
                     const payload = {
                         message: `Upload image ${fileName}`,
                         content: content,
-                        branch: BRANCH
+                        branch: 'main' // Adjust if using a different branch
                     };
 
                     // Upload to GitHub
@@ -192,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (!response.ok) {
                         const errorData = await response.json();
-                        throw new Error(errorData.message || `Failed to upload image ${file.name}: ${response.status}`);
+                        throw new Error(errorData.message || `Failed to upload image ${file.name}`);
                     }
 
                     completedUploads++;
@@ -200,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         Swal.fire({
                             icon: 'success',
                             title: 'Upload Successful',
-                            text: `${validFiles.length} image(s) uploaded to quizzes/Saha/. Access at ${DOMAIN}/quizzes/Saha/`
+                            text: `${validFiles.length} image(s) uploaded to quizzes/Saha/`
                         });
                         imageFilesInput.value = ''; // Clear input
                     }
@@ -209,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     Swal.fire({
                         icon: 'error',
                         title: 'Upload Failed',
-                        text: `Failed to upload image "${file.name}": ${error.message}. Check PAT, repository, or network.`
+                        text: `Failed to upload image "${file.name}": ${error.message}. Check token, permissions, or network.`
                     });
                 }
             };
@@ -296,13 +274,17 @@ document.addEventListener('DOMContentLoaded', function () {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Test Page</title>
             <link rel="stylesheet" href="quiz.css">
-            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+            <!-- Add Firebase products that you want to use -->
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+            <!-- Then include your marks.js -->
+
             <script type="module" src="Marks.js"></script>
         </head>
         <body>
             <div class="quiz-container">
+                <!-- Header Section with Timer and Toggle Button -->
                 <div class="quiz-header">
                     <div id="timerDuration" data-duration="${duration}:00" style="display: none;"></div>
                     <div id="timer" style="font-size: 24px; text-align: center;"></div>
@@ -311,26 +293,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     </button>
                 </div>
                 
+                <!-- Subject Toggle Buttons -->
+                
                 <div class="subject-toggles">
-                    <button class="subject-btn active" data-subject="physics">
-                        Physics
-                        <span class="question-count"></span>
-                    </button>
-                    <button class="subject-btn" data-subject="chemistry">
-                        Chemistry
-                        <span class="question-count"></span>
-                    </button>
-                    <button class="subject-btn" data-subject="biology">
-                        Biology
-                        <span class="question-count"></span>
-                    </button>
-                    <button class="subject-btn" data-subject="mathematics">
-                        Mathematics
-                        <span class="question-count"></span>
-                    </button>
+                <button class="subject-btn active" data-subject="physics">
+                    Physics
+                    <span class="question-count"></span>
+                </button>
+                
+                <button class="subject-btn" data-subject="chemistry">
+                    Chemistry
+                    <span class="question-count"></span>
+                </button>
+            
+                <button class="subject-btn" data-subject="biology">
+                    Biology
+                    <span class="question-count"></span>
+                </button>
                 </div>
-    
+
+        
                 <div class="quiz-layout">
+                    <!-- Question Palette -->
                     <div id="questionPalette" class="question-palette">
                         <div class="palette-header">
                             <h3>Question Palette</h3>
@@ -356,21 +340,25 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         <div id="paletteButtons" class="palette-buttons"></div>
                     </div>
-    
+        
+                    <!-- Main Quiz Form -->
                     <form id="quizForm" onsubmit="calculateScore(event)">
                         <div class="question-section-container">
-        `;
+            `;
         
-        data.slice(1).forEach((row, index) => {
-            const questionText = row[0] || 'No Question Text';
-            const questionType = row[7] || 'MCQ';
-            const subjectType = row[8] || '';
-            const options = row.slice(1, 5).filter(opt => opt && opt.trim() !== '');
-            const correctAnswer = row[5] || '';
-            const msqCorrectAnswer = row[9] || '';
-            const natRange = row[10] || '';
-            const imagePath = row[6] || '';
+            // Start from second row (index 1) to skip headers
+            data.slice(1).forEach((row, index) => {
+                 // Safely extract values with fallback
+                const questionText = row[0] || 'No Question Text';
+                const questionType = row[7] || 'MCQ';
+                const subjectType = row[8] || ''; // Added subject type from Excel
+                const options = row.slice(1, 5).filter(opt => opt && opt.trim() !== '');
+                const correctAnswer = row[5] || '';
+                const msqCorrectAnswer = row[9] || ''; // Adjusted index
+                const natRange = row[10] || ''; // Adjusted index
+                const imagePath = row[6] || '';
 
+            // Skip rows with no question text or options
             if (!questionText || options.length === 0) return;
 
             let questionBlock = `
@@ -381,30 +369,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 ${questionType === 'MSQ' ? `data-correct="${msqCorrectAnswer}"` : ''}
                 ${questionType === 'NAT' ? `data-range="${natRange}"` : ''}
             >
-                <div class="question-header">
-                    <span class="question-type">${questionType}</span>
-                    <span class="subject-type">${subjectType}</span>
-                    <span class="question-number">Q.${index + 1}</span>
-                </div>
-                <div class="question-content">
-                    <p>${questionText}</p>
+
+            <div class="question-header">
+                <span class="question-type">${questionType}</span>
+                <span class="subject-type">${subjectType}</span>
+                <span class="question-number">Q.${index + 1}</span>
+            </div>
+            <div class="question-content">
+                <p>${questionText}</p>
             `;
 
             if (imagePath) {
-                // Use absolute URL for images
-                const absoluteImagePath = imagePath.startsWith('/') ? `${DOMAIN}${imagePath}` : /quizes/Saha/${imagePath}`;
                 questionBlock += `
-                <img src="${absoluteImagePath}" alt="Question Image" style="max-width: 100%; height: auto;">
-                `;
+                <img src="${imagePath}" alt="Question Image" style="max-width: 100%; height: auto;">
+            `;
             }
 
+            // Generate options based on question type
             if (questionType === 'MCQ' || questionType === 'MSQ') {
                 const inputType = questionType === 'MCQ' ? 'radio' : 'checkbox';
                 const optionLabels = ['Option A', 'Option B', 'Option C', 'Option D'];
 
                 questionBlock += '<ul class="question-options">';
                 options.forEach((option, idx) => {
-                    questionBlock += `
+                questionBlock += `
                     <li>
                         <input type="${inputType}" 
                             name="question${index + 1}" 
@@ -412,26 +400,26 @@ document.addEventListener('DOMContentLoaded', function () {
                             value="${optionLabels[idx]}">
                         <label for="q${index + 1}_${String.fromCharCode(97 + idx)}">${option}</label>
                     </li>
-                    `;
-                });
-                questionBlock += '</ul>';
-            } else if (questionType === 'NAT') {
-                questionBlock += `
+                `;
+            });
+            questionBlock += '</ul>';
+        } else if (questionType === 'NAT') {
+            questionBlock += `
                 <div class="nat-input">
                     <input type="number" name="question${index + 1}" step="1">
                 </div>
-                `;
-            }
+            `;
+        }
 
-            questionBlock += `
+        questionBlock += `
                 </div>
             </div>
-            `;
+        `;
 
-            htmlContent += questionBlock;
-        });
+        htmlContent += questionBlock;
+    });
         
-        htmlContent += `
+            htmlContent += `
                         </div>
                         <div class="button-section">
                             <div class="primary-buttons">
@@ -453,12 +441,15 @@ document.addEventListener('DOMContentLoaded', function () {
             <script src="quiz.js"></script>
         </body>
         </html>
-        `;
+            `;
         
-        return htmlContent;
+            return htmlContent;
     }
+});
 
-    // Student Performance Functions
+// student update //
+
+document.addEventListener('DOMContentLoaded', function () {
     function fetchStudentPerformance() {
         const tableBody = document.getElementById('studentTableBody');
         
@@ -467,8 +458,10 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // Clear existing table rows
         tableBody.innerHTML = '';
 
+        // Fetch students from Firestore
         firebase.firestore().collection('Hima')
             .get()
             .then((querySnapshot) => {
@@ -477,7 +470,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 querySnapshot.forEach((doc) => {
                     const studentData = doc.data();
 
+                    // Check if student has Score property (from quiz submission)
                     if (studentData.Score !== undefined) {
+                        // Create table row
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${studentData.firstName || 'N/A'} ${studentData.lastName || ''}</td>
@@ -492,6 +487,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
 
+                // Populate table or show no data message
                 if (performanceRows.length > 0) {
                     performanceRows.forEach(row => tableBody.appendChild(row));
                 } else {
@@ -524,6 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Course Filter Function
     function filterStudentsByCourse(course) {
         const tableBody = document.getElementById('studentTableBody');
         
@@ -577,6 +574,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Course Filter Dropdown
     function populateCourseFilter() {
         const performanceCard = document.querySelector('.col-md-4 .card');
         
