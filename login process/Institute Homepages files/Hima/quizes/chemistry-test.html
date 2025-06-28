@@ -1,0 +1,1426 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Test Page</title>
+            <link rel="stylesheet" href="quiz.css">
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+            <!-- Add Firebase products that you want to use -->
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+            <!-- Then include your marks.js -->
+
+            <script type="module" src="Marks.js"></script>
+        </head>
+        <body>
+            <div class="quiz-container">
+                <!-- Header Section with Timer and Toggle Button -->
+                <div class="quiz-header">
+                    <div id="timerDuration" data-duration="60:00" style="display: none;"></div>
+                    <div id="timer" style="font-size: 24px; text-align: center;"></div>
+                    <button id="paletteTrigger" class="palette-toggle-btn">
+                        <span class="toggle-icon">☰</span>
+                    </button>
+                </div>
+                
+                <!-- Subject Toggle Buttons -->
+                
+                <div class="subject-toggles">
+                <button class="subject-btn active" data-subject="physics">
+                    Physics
+                    <span class="question-count"></span>
+                </button>
+                
+                <button class="subject-btn" data-subject="chemistry">
+                    Chemistry
+                    <span class="question-count"></span>
+                </button>
+            
+                <button class="subject-btn" data-subject="biology">
+                    Biology
+                    <span class="question-count"></span>
+                </button>
+                </div>
+
+        
+                <div class="quiz-layout">
+                    <!-- Question Palette -->
+                    <div id="questionPalette" class="question-palette">
+                        <div class="palette-header">
+                            <h3>Question Palette</h3>
+                            <button class="close-palette">×</button>
+                        </div>
+                        <div class="palette-legend">
+                            <div class="legend-item">
+                                <span class="answered"></span>
+                                <p>Answered</p>
+                            </div>
+                            <div class="legend-item">
+                                <span class="not-answered"></span>
+                                <p>Not Answered</p>
+                            </div>
+                            <div class="legend-item">
+                                <span class="marked-review"></span>
+                                <p>Marked for Review</p>
+                            </div>
+                            <div class="legend-item">
+                                <span class="not-visited"></span>
+                                <p>Not Visited</p>
+                            </div>
+                        </div>
+                        <div id="paletteButtons" class="palette-buttons"></div>
+                    </div>
+        
+                    <!-- Main Quiz Form -->
+                    <form id="quizForm" onsubmit="calculateScore(event)">
+                        <div class="question-section-container">
+            
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.1</span>
+            </div>
+            <div class="question-content">
+                <p>1</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (1).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question1" 
+                            id="q1_a" 
+                            value="Option A">
+                        <label for="q1_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question1" 
+                            id="q1_b" 
+                            value="Option B">
+                        <label for="q1_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question1" 
+                            id="q1_c" 
+                            value="Option C">
+                        <label for="q1_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question1" 
+                            id="q1_d" 
+                            value="Option D">
+                        <label for="q1_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option A"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.2</span>
+            </div>
+            <div class="question-content">
+                <p>2</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (2).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question2" 
+                            id="q2_a" 
+                            value="Option A">
+                        <label for="q2_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question2" 
+                            id="q2_b" 
+                            value="Option B">
+                        <label for="q2_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question2" 
+                            id="q2_c" 
+                            value="Option C">
+                        <label for="q2_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question2" 
+                            id="q2_d" 
+                            value="Option D">
+                        <label for="q2_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.3</span>
+            </div>
+            <div class="question-content">
+                <p>3</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (3).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question3" 
+                            id="q3_a" 
+                            value="Option A">
+                        <label for="q3_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question3" 
+                            id="q3_b" 
+                            value="Option B">
+                        <label for="q3_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question3" 
+                            id="q3_c" 
+                            value="Option C">
+                        <label for="q3_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question3" 
+                            id="q3_d" 
+                            value="Option D">
+                        <label for="q3_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option A"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.4</span>
+            </div>
+            <div class="question-content">
+                <p>4</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (4).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question4" 
+                            id="q4_a" 
+                            value="Option A">
+                        <label for="q4_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question4" 
+                            id="q4_b" 
+                            value="Option B">
+                        <label for="q4_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question4" 
+                            id="q4_c" 
+                            value="Option C">
+                        <label for="q4_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question4" 
+                            id="q4_d" 
+                            value="Option D">
+                        <label for="q4_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option C"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.5</span>
+            </div>
+            <div class="question-content">
+                <p>5</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (5).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question5" 
+                            id="q5_a" 
+                            value="Option A">
+                        <label for="q5_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question5" 
+                            id="q5_b" 
+                            value="Option B">
+                        <label for="q5_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question5" 
+                            id="q5_c" 
+                            value="Option C">
+                        <label for="q5_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question5" 
+                            id="q5_d" 
+                            value="Option D">
+                        <label for="q5_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option C"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.6</span>
+            </div>
+            <div class="question-content">
+                <p>6</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (6).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question6" 
+                            id="q6_a" 
+                            value="Option A">
+                        <label for="q6_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question6" 
+                            id="q6_b" 
+                            value="Option B">
+                        <label for="q6_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question6" 
+                            id="q6_c" 
+                            value="Option C">
+                        <label for="q6_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question6" 
+                            id="q6_d" 
+                            value="Option D">
+                        <label for="q6_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.7</span>
+            </div>
+            <div class="question-content">
+                <p>7</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (7).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question7" 
+                            id="q7_a" 
+                            value="Option A">
+                        <label for="q7_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question7" 
+                            id="q7_b" 
+                            value="Option B">
+                        <label for="q7_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question7" 
+                            id="q7_c" 
+                            value="Option C">
+                        <label for="q7_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question7" 
+                            id="q7_d" 
+                            value="Option D">
+                        <label for="q7_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option C"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.8</span>
+            </div>
+            <div class="question-content">
+                <p>8</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (8).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question8" 
+                            id="q8_a" 
+                            value="Option A">
+                        <label for="q8_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question8" 
+                            id="q8_b" 
+                            value="Option B">
+                        <label for="q8_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question8" 
+                            id="q8_c" 
+                            value="Option C">
+                        <label for="q8_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question8" 
+                            id="q8_d" 
+                            value="Option D">
+                        <label for="q8_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option D"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.9</span>
+            </div>
+            <div class="question-content">
+                <p>9</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (9).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question9" 
+                            id="q9_a" 
+                            value="Option A">
+                        <label for="q9_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question9" 
+                            id="q9_b" 
+                            value="Option B">
+                        <label for="q9_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question9" 
+                            id="q9_c" 
+                            value="Option C">
+                        <label for="q9_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question9" 
+                            id="q9_d" 
+                            value="Option D">
+                        <label for="q9_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.10</span>
+            </div>
+            <div class="question-content">
+                <p>10</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (10).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question10" 
+                            id="q10_a" 
+                            value="Option A">
+                        <label for="q10_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question10" 
+                            id="q10_b" 
+                            value="Option B">
+                        <label for="q10_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question10" 
+                            id="q10_c" 
+                            value="Option C">
+                        <label for="q10_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question10" 
+                            id="q10_d" 
+                            value="Option D">
+                        <label for="q10_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option D"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.11</span>
+            </div>
+            <div class="question-content">
+                <p>11</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (11).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question11" 
+                            id="q11_a" 
+                            value="Option A">
+                        <label for="q11_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question11" 
+                            id="q11_b" 
+                            value="Option B">
+                        <label for="q11_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question11" 
+                            id="q11_c" 
+                            value="Option C">
+                        <label for="q11_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question11" 
+                            id="q11_d" 
+                            value="Option D">
+                        <label for="q11_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.12</span>
+            </div>
+            <div class="question-content">
+                <p>12</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (12).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question12" 
+                            id="q12_a" 
+                            value="Option A">
+                        <label for="q12_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question12" 
+                            id="q12_b" 
+                            value="Option B">
+                        <label for="q12_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question12" 
+                            id="q12_c" 
+                            value="Option C">
+                        <label for="q12_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question12" 
+                            id="q12_d" 
+                            value="Option D">
+                        <label for="q12_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.13</span>
+            </div>
+            <div class="question-content">
+                <p>13</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (13).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question13" 
+                            id="q13_a" 
+                            value="Option A">
+                        <label for="q13_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question13" 
+                            id="q13_b" 
+                            value="Option B">
+                        <label for="q13_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question13" 
+                            id="q13_c" 
+                            value="Option C">
+                        <label for="q13_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question13" 
+                            id="q13_d" 
+                            value="Option D">
+                        <label for="q13_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.14</span>
+            </div>
+            <div class="question-content">
+                <p>14</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (14).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question14" 
+                            id="q14_a" 
+                            value="Option A">
+                        <label for="q14_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question14" 
+                            id="q14_b" 
+                            value="Option B">
+                        <label for="q14_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question14" 
+                            id="q14_c" 
+                            value="Option C">
+                        <label for="q14_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question14" 
+                            id="q14_d" 
+                            value="Option D">
+                        <label for="q14_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.15</span>
+            </div>
+            <div class="question-content">
+                <p>15</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (15).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question15" 
+                            id="q15_a" 
+                            value="Option A">
+                        <label for="q15_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question15" 
+                            id="q15_b" 
+                            value="Option B">
+                        <label for="q15_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question15" 
+                            id="q15_c" 
+                            value="Option C">
+                        <label for="q15_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question15" 
+                            id="q15_d" 
+                            value="Option D">
+                        <label for="q15_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.16</span>
+            </div>
+            <div class="question-content">
+                <p>16</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (16).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question16" 
+                            id="q16_a" 
+                            value="Option A">
+                        <label for="q16_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question16" 
+                            id="q16_b" 
+                            value="Option B">
+                        <label for="q16_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question16" 
+                            id="q16_c" 
+                            value="Option C">
+                        <label for="q16_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question16" 
+                            id="q16_d" 
+                            value="Option D">
+                        <label for="q16_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.17</span>
+            </div>
+            <div class="question-content">
+                <p>17</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (17).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question17" 
+                            id="q17_a" 
+                            value="Option A">
+                        <label for="q17_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question17" 
+                            id="q17_b" 
+                            value="Option B">
+                        <label for="q17_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question17" 
+                            id="q17_c" 
+                            value="Option C">
+                        <label for="q17_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question17" 
+                            id="q17_d" 
+                            value="Option D">
+                        <label for="q17_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.18</span>
+            </div>
+            <div class="question-content">
+                <p>18</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (18).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question18" 
+                            id="q18_a" 
+                            value="Option A">
+                        <label for="q18_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question18" 
+                            id="q18_b" 
+                            value="Option B">
+                        <label for="q18_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question18" 
+                            id="q18_c" 
+                            value="Option C">
+                        <label for="q18_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question18" 
+                            id="q18_d" 
+                            value="Option D">
+                        <label for="q18_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option A"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.19</span>
+            </div>
+            <div class="question-content">
+                <p>19</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (19).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question19" 
+                            id="q19_a" 
+                            value="Option A">
+                        <label for="q19_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question19" 
+                            id="q19_b" 
+                            value="Option B">
+                        <label for="q19_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question19" 
+                            id="q19_c" 
+                            value="Option C">
+                        <label for="q19_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question19" 
+                            id="q19_d" 
+                            value="Option D">
+                        <label for="q19_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.20</span>
+            </div>
+            <div class="question-content">
+                <p>20</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (20).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question20" 
+                            id="q20_a" 
+                            value="Option A">
+                        <label for="q20_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question20" 
+                            id="q20_b" 
+                            value="Option B">
+                        <label for="q20_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question20" 
+                            id="q20_c" 
+                            value="Option C">
+                        <label for="q20_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question20" 
+                            id="q20_d" 
+                            value="Option D">
+                        <label for="q20_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option C"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.21</span>
+            </div>
+            <div class="question-content">
+                <p>21</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (21).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question21" 
+                            id="q21_a" 
+                            value="Option A">
+                        <label for="q21_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question21" 
+                            id="q21_b" 
+                            value="Option B">
+                        <label for="q21_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question21" 
+                            id="q21_c" 
+                            value="Option C">
+                        <label for="q21_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question21" 
+                            id="q21_d" 
+                            value="Option D">
+                        <label for="q21_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option C"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.22</span>
+            </div>
+            <div class="question-content">
+                <p>22</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (22).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question22" 
+                            id="q22_a" 
+                            value="Option A">
+                        <label for="q22_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question22" 
+                            id="q22_b" 
+                            value="Option B">
+                        <label for="q22_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question22" 
+                            id="q22_c" 
+                            value="Option C">
+                        <label for="q22_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question22" 
+                            id="q22_d" 
+                            value="Option D">
+                        <label for="q22_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option C"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.23</span>
+            </div>
+            <div class="question-content">
+                <p>23</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (23).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question23" 
+                            id="q23_a" 
+                            value="Option A">
+                        <label for="q23_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question23" 
+                            id="q23_b" 
+                            value="Option B">
+                        <label for="q23_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question23" 
+                            id="q23_c" 
+                            value="Option C">
+                        <label for="q23_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question23" 
+                            id="q23_d" 
+                            value="Option D">
+                        <label for="q23_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option B"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.24</span>
+            </div>
+            <div class="question-content">
+                <p>24</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (24).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question24" 
+                            id="q24_a" 
+                            value="Option A">
+                        <label for="q24_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question24" 
+                            id="q24_b" 
+                            value="Option B">
+                        <label for="q24_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question24" 
+                            id="q24_c" 
+                            value="Option C">
+                        <label for="q24_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question24" 
+                            id="q24_d" 
+                            value="Option D">
+                        <label for="q24_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+            <div class="question-section" 
+                data-type="MCQ"
+                data-subject="chemistry"
+                data-correct="Option A"
+                
+                
+            >
+
+            <div class="question-header">
+                <span class="question-type">MCQ</span>
+                <span class="subject-type">Chemistry</span>
+                <span class="question-number">Q.25</span>
+            </div>
+            <div class="question-content">
+                <p>25</p>
+            
+                <img src="Saha/ORG_CHEM_test_1 (25).JPG" alt="Question Image" style="max-width: 100%; height: auto;">
+            <ul class="question-options">
+                    <li>
+                        <input type="radio" 
+                            name="question25" 
+                            id="q25_a" 
+                            value="Option A">
+                        <label for="q25_a">Option A</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question25" 
+                            id="q25_b" 
+                            value="Option B">
+                        <label for="q25_b">Option B</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question25" 
+                            id="q25_c" 
+                            value="Option C">
+                        <label for="q25_c">Option C</label>
+                    </li>
+                
+                    <li>
+                        <input type="radio" 
+                            name="question25" 
+                            id="q25_d" 
+                            value="Option D">
+                        <label for="q25_d">Option D</label>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        
+                        </div>
+                        <div class="button-section">
+                            <div class="primary-buttons">
+                                <button type="button" onclick="previousQuestion()" id="prevButton">Previous</button>
+                                <button type="button" onclick="saveAndNext()" id="saveNextButton">Save & Next</button>
+                                <button type="button" onclick="nextQuestion()" id="nextButton">Next</button>
+                            </div>
+                            <div class="secondary-buttons">
+                                <button type="button" onclick="clearResponse()" id="clearButton">Clear</button>
+                                <button type="button" onclick="markForReview()" id="markForReviewButton">Mark for Review</button>
+                            </div>
+                            <div class="submit-button">
+                                <button type="submit" id="submitButton">Submit Test</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <script src="quiz.js"></script>
+        </body>
+        </html>
+            
